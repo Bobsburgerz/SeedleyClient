@@ -21,7 +21,7 @@ const Modal = ({ onClose, setSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 try {
-    await axios.post('http://localhost:5500/contact', formData);
+    await axios.post('https://pizzaserver.onrender.com/contact', formData);
     onClose();
     setSuccess(true);
   }catch(e) {

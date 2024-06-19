@@ -141,7 +141,7 @@ const flow = []
 
 
         </div>
-{!isOpen  &&  <>  <Modal onClose={() => setIsOpen(false)} /></>}
+{!isOpen  &&  <>  <Modal onClose={() => setIsOpen(true)} /></>}
         <div onClick={() => setOption("Billing")} className="nav-side"style={{  bottom: '70px', padding: '10px',color:'#f2f2f2', width: '215px',
           boxShadow: '1px 4px 8px rgba(0, 0, 0, 0.2)', margin: '0px 15px',  position:'absolute', opacity: '1',
           borderRadius: '5px' }}>

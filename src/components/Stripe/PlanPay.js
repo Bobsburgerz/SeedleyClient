@@ -13,10 +13,8 @@ function CheckoutForm({onClose}) {
   const elements = useElements();
   const user = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false)
-  const [card, setCard] = useState([{}])
-  const [selectedCard, setSelectedCard] = useState(card?.length > 0 ? card[0] : []);
   const [secret,setSecret] = useState(user?.client)
-  const [amount, setAmount] = useState(2500)
+  const [amount, setAmount] = useState(24900)
   const [updateUser, { isError, isLoading, error }] = useUpdateUserMutation();
   const [selected, setSelected] = useState("Standard")
   const [failed, setFailed] = useState(false)
@@ -29,7 +27,7 @@ useEffect(() => {
       setTimeout(() => {
        onClose();
     
-      }, 2100);
+      }, 1000);
     }
   };
 
@@ -49,9 +47,7 @@ useEffect(() => {
   getFlow();
 }, [failed]);
 
- const handleAnimationComplete = () => {
-  onClose()
- }
+ 
 const handlePay = async (e) => {
       e.preventDefault();
       if (!stripe || !elements) {
@@ -78,7 +74,6 @@ const handlePay = async (e) => {
           } else {
         
             if (result.paymentIntent.status === "succeeded") {
-         
             } else {
               console.log('err')
               setFailed(true)
@@ -87,52 +82,37 @@ const handlePay = async (e) => {
             }
           }
 
-setSuccess(true)
-updateUser({id:user._id, paid:true, credits: amount + user.credits}) 
+    setSuccess(true)
+    updateUser({id:user._id, paid:true, credits: amount + user.credits}) 
       }
       catch (error) {
      console.log('error.message');
       }
     };
- 
-
-
-
     useEffect(() => {
     const getFlow = async () => {
-
       if(user) {
-     
       setLoading(true)
-      
-      const cards = await axios.get(`/payments?customerId=${user.customer}`)
       const amount = selected == "Standard" ? 24900 : 8900
+      setAmount(amount)
       const getSecret = await axios.post("/create-payment", {amount, customer:user?.customer})
       setSecret( getSecret?.data?.paymentIntent.client_secret)
-       
-       
-    
-      setLoading(false)
-   
-              
+      setLoading(false)         
     }}
-
-
-
   getFlow()
   },[selected])
-  
-  
-    return (
+
+  return (
       <div style={{backgroundColor:'white'}} className="stripe-form">
 
-        {!success ? <>
-        Success
+        {success ? <>
+        <h1 style={{color: "#34a853"}}>Payment Successful</h1>
           <Lottie
       animationData={lottieFile}
-      speed={0.5} // Set the playback speed to 0.5 to make it slower
-      onComplete={handleAnimationComplete}
-      autoplay
+       
+      loop={false}
+
+     
     />
         
          </> : <> 
@@ -156,27 +136,15 @@ updateUser({id:user._id, paid:true, credits: amount + user.credits})
       </div></div>
       
       </div>
-    
-      </div>
- 
-      
+    {secret}
+      </div>     
       </div> 
-
-
-  
-           
-    
- 
-
- 
-    
-          
           <>
-
+ 
           <h3>{selected} {selected == "Standard" ? "$249" : "$89"} per month</h3>
           <label htmlFor="card-element">Card Info</label>
           <div style={{border: failed && '1px solid red'}} className="card-element">
-              <CardInput  failed={failed}/>
+              <CardInput failed={failed}/>
           </div>
 
           <label htmlFor="card-name">Name on Card</label>

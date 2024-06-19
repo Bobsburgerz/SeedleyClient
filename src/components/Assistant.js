@@ -151,7 +151,7 @@ setSuccess(false)
     const updateAssistantData = async () => {
       if (prevAssis !== selected) {
         try {
-          const res = await axios.post("http://localhost:5500/updateAssistant", selected);
+          const res = await axios.post("https://pizzaserver.onrender.com/updateAssistant", selected);
           dispatch(updateAssistants(res.data));
         } catch (error) {
       
@@ -174,7 +174,7 @@ setSuccess(false)
     const updateAssistantData = async () => {
         if (prevAssis !== selected) {
             try {
-                const res = await axios.post("http://localhost:5500/updateAssistant", selected);
+                const res = await axios.post("https://pizzaserver.onrender.com/updateAssistant", selected);
                 dispatch(updateAssistants(res.data));
             } catch (error) {
                 console.error('Error updating assistant:', error);
