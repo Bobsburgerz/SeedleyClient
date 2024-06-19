@@ -1,0 +1,49 @@
+.standardBtn {
+    padding: 5px;
+    border: 1px solid #34a853;
+    border-radius: 5px;
+
+}
+
+
+
+.closer-btn-3 {
+    font-family: 'Cantarell',sans-serif;
+    background-color: rgba(128, 128, 128, 0.857);
+    color: white;
+    border-radius: 50%;
+    width: fit-content;
+ margin: 0px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    height: 23px;
+   
+    cursor: pointer;
+   align-items: center;
+    width: 23px;
+  }
+
+
+  .func-item  {
+ 
+     
+    display: flex;
+    max-width: 300px;
+ 
+   
+    justify-content: space-between;
+    column-gap: 5px;
+  }
+
+  .func-item-parent {
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 0px 10px;
+    padding-bottom: 10px;
+ 
+    max-width: 300px;
+    border: 1px solid gray;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
+    
+  }

@@ -1,0 +1,115 @@
+.sound-visualizer-container {
+    height: 215px;
+    position: relative;
+  }
+  
+  .voice-select {
+    padding: 8px;
+    border-radius: 5px;
+    width: 100%;
+    background-color: white;
+  }
+
+  
+  
+.ply {
+  width:100px;
+  height: 100px;
+  margin-top: -90px
+}
+.home-img {
+  width:267px;
+  cursor: pointer;
+  margin-bottom: -85px;
+   height: 250px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+  .home-vid {
+    width:267px;
+    border-radius: 5px;
+     height: 250px;
+     object-fit: cover
+  }
+  .play-demo {
+    color: #ffffff;
+    background-color: #4ab56100;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 3px;
+    cursor: pointer;
+  }
+  
+  .outer-circle {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: #facc15d3; /* Adjust color as needed */
+  }
+  
+  .inner-circle {
+    position: absolute;
+    border: 2px solid #facc15d3;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    border-radius: 50%;
+    background-color: #ffffff38; /* Adjust color as needed */
+    z-index: 1; /* Ensure it's above the outer circle */
+  }
+  
+  .play-pause-button {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3498db; /* Adjust color as needed */
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition */
+  }
+  
+  .play-pause-button:hover {
+    background-color: #2980b9; /* Adjust color as needed */
+  }
+  
+  .subtitle {
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .inner-circle.playing {
+    animation: pulse 1s infinite; /* Apply animation only when playing */
+  }
+  
+  @keyframes fadeAnimationCustom {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

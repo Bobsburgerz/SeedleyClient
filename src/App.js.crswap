@@ -1,0 +1,114 @@
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { ReactFlowProvider } from 'reactflow';
+import { useDispatch, useSelector } from 'react-redux';
+import Home from './components/Home';
+import { ClipLoader } from 'react-spinners';
+import Signup from './components/Form';
+import Enviroment from "./components/Enviroment";
+import Dashboard from './components/Dashboard';
+import Signup2 from './components/Signup';
+import Login from './components/Login';
+import Navbar from './components/Navbar';
+import Pricing from './components/Pricing';
+import Callback from './components/Callback';
+import BlogPostBuilder from './components/BlogBuilder';
+import Blog from './components/Blog';
+import Redirect from './components/redirect';
+import Pay from './components/Checkout.js';
+import { useLocation } from 'react-router-dom';
+import {Outlet } from 'react-router-dom';
+import { updateCalls } from './features/callSlice';
+import { updateUser } from './features/userSlice';
+import {setLoading }from './features/loadingSlice.js';
+const PrivateRoute = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const waitAndSetLoading = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      setIsLoading(false);
+    };
+
+    waitAndSetLoading();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <ClipLoader color="#21c23e" size={75} />
+      </div>
+    );
+  }
+
+  return user?._id ? <Outlet /> : <Navigate to="/login" />;
+};
+const App = () => {
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.loading);
+  const location = useLocation();
+  const user = useSelector((state) => state.user);
+  useEffect(() => {
+    const socket = new WebSocket(`wss://scaling-engine-g44p9ggwq6vq39gj4-3000.app.github.d/react-app?userId=${user?._id}`);
+  
+    socket.addEventListener('message', (event) => {
+      try {
+        const message = event.data;
+        let parsedMessage = message; // Assign the original message by default
+ 
+        // Check if the message is a string
+        if (typeof message === 'string') {
+          try {
+            parsedMessage = JSON.parse(message);
+            console.log("wb",parsedMessage)
+          } catch (error) {
+            // Handle the error when parsing fails
+            console.error('Error parsing JSON message:', error);
+          }
+        }
+  
+ 
+
+        if (Array.isArray(parsedMessage)) {
+        dispatch(updateCalls(parsedMessage.calls))
+        dispatch(updateUser(parsedMessage.user))}
+      } catch (error) {
+        console.error('Error handling WebSocket message:', error);
+      }
+    });
+  
+    return () => {
+      socket.close();
+    };
+  }, []);
+  return (
+    <>
+      <ReactFlowProvider>
+      {location.pathname !== '/' && <Navbar />}
+     
+        <Routes>
+     
+          <Route path="/" element={<Home />} />
+          <Route path="/redirect" element={<Redirect/>} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/enviroment" element={<Enviroment />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/callback" element={<Callback />} />
+          <Route element={<PrivateRoute/>}>
+          <Route path="/dashboard" element={<Dashboard />} />
+         </Route>  
+        </Routes>
+      </ReactFlowProvider>
+    </>
+  );
+};
+
+const YourPrivateComponent = () => {
+  return <div>This is a private route accessible only to logged-in users.</div>;
+};
+
+export default App;

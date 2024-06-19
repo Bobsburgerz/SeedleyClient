@@ -1,0 +1,39 @@
+import React, {useEffect} from 'react';
+import axios from 'axios'
+import cam from './assets/caa.png';
+import { useDispatch, useSelector } from "react-redux";
+import {useNavigate} from 'react-router-dom'
+const Redirect = () => {
+const navigate = useNavigate()
+const user = useSelector((state) => state.user);
+    useEffect(() => {
+        const code = new URL(window.location.href).searchParams.get('code');
+        async function getCode() {
+          if (code) {
+            try {
+              const res = await axios.get(`http://localhost:5500/redirect?code=${code}&user=${user._id}`);
+              navigate('/dashboard');
+            } catch (e) {
+              console.log('e.message');
+            }
+          }
+        }
+    
+        getCode();
+      }, []);
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+Success!
+    </div>
+  );
+};
+
+export default Redirect;

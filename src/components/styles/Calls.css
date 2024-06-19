@@ -1,0 +1,24 @@
+.filters-popup {
+    background-color: #f2f2f2;
+    padding: 5px;
+    border-radius: 5px;
+    
+}
+
+.filter-select {
+    padding: 5px;
+    border-radius: 5px
+}
+
+
+.btn-set {
+    padding: 5px;
+    border-radius: 5px
+}
+
+
+.space-between {
+    justify-content: space-between ;
+
+display:flex
+}

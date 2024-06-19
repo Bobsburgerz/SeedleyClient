@@ -1,0 +1,31 @@
+.Modal {
+    box-shadow: 1px 1px 1px 1px rgb(0,0,0,.5);
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
+    width: 175px;
+    position: absolute;
+    margin-top: 68px;
+    margin-left: 165px;
+    text-align: center;
+    row-gap: 5px;
+    display: flex;
+    flex-direction: column;
+    }
+    
+    .ModalOption { 
+    cursor: pointer;
+    box-shadow: 1px 1px 1px 1px rgb(0,0,0,.5);
+    width: 93%;
+    border-radius: 5px;
+    padding: 5px;
+    }
+    
+    @media (min-width: 790px) {
+        .Modal {
+          display:none
+        }
+        
+      
+    
+    }
