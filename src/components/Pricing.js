@@ -128,7 +128,7 @@ const closeModal = () => {
 
 </>}
 
-<h1  className="pricing-text" style={{color: '#34a853',fontSize:'36px', color:'white', marginTop: '-5px'}}>Pricing & Plans</h1>
+<h1  className="pricing-text" style={{color: '#34a853',fontSize:'36px', color:'white', marginTop: '5px'}}>Pricing & Plans</h1>
 <p  className="pricing-text"  style={{ color: '#34a853', fontSize:'18px', marginTop: '-5px', marginBottom:'18px'}}>Find your perfect fit</p>
 <div style={{alignItems: 'end'}}className='pricing-wrap'>
  

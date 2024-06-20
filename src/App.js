@@ -122,19 +122,15 @@ console.log(user, user._id)
   return (
     <>
       <ReactFlowProvider>
-      {location !== '/' && <Navbar />}
+      {location !== '/' &&  <Navbar />}
      
         <Routes>
-     
           <Route path="/" element={<Home />} />
           <Route path="/redirect" element={<Redirect/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/enviroment" element={<Enviroment />} />
-     
-  
           <Route path="/pricing" element={<Pricing />} />
-          <Route path="/login" element={<Login />} />
-     
+          <Route path="/login" element={<Login />} />  
           <Route element={<PrivateRoute/>}>
           <Route path="/dashboard" element={<Dashboard />} />
          </Route>  
@@ -144,8 +140,5 @@ console.log(user, user._id)
   );
 };
 
-const YourPrivateComponent = () => {
-  return <div>This is a private route accessible only to logged-in users.</div>;
-};
 
 export default App;

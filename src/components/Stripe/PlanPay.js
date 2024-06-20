@@ -136,7 +136,6 @@ const handlePay = async (e) => {
       </div></div>
       
       </div>
-    {secret}
       </div>     
       </div> 
           <>
