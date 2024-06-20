@@ -8,7 +8,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 100vh;
   column-gap: 20px;
   padding: 15px;
 }
@@ -24,7 +24,7 @@
 
   justify-content: center;
   align-items: center;
-
+margin-top: -10px;
   column-gap: 20px;
 
 }
@@ -156,6 +156,8 @@ input:focus {
   border: 1px solid #ddd;
   border-radius: 12px;
   padding: 30px;
+  position: relative;
+ top: -60px;
   text-align: center;
   justify-content: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -170,7 +172,7 @@ input:focus {
 
 .price {
   font-size: 28px;
-
+  margin-top: 0px;
   margin: 15px 0;
 }
 

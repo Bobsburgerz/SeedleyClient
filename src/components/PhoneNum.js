@@ -7,7 +7,7 @@ import Delete from "./assets/delete.png"
 import { useDeleteNumberMutation } from "../services/appApi";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import './styles/Dashboard.css'
+import './styles/Dashboard.css';
 const Modal = ({ onClose, isDelete, selected, setSelected, setDelete }) => {
   const phone = useSelector((state) => state.phoneNum);
   const [deleteNumber, { isDeleteError }] = useDeleteNumberMutation();
@@ -76,15 +76,22 @@ const Modal = ({ onClose, isDelete, selected, setSelected, setDelete }) => {
 
 
               <h2 style={{ marginTop: '0px', marginBottom: '-5px' }}>Add your number</h2>
+              <br/>
               <label style={{ marginTop: '10px'  }}>Twillio number</label>
-              <input type="number" name="number" placeholder="123456789101" value={formData.number} onChange={handleChange} required />
+    
+              <input type="number" name="number"
+               placeholder="123456789101" value={formData.number} onChange={handleChange} required />
               <label>Twilio SID</label>
               <input type="text" name="twilioSID" placeholder="Account twilioSID" value={formData.twilioSID} onChange={handleChange} required />
               <label>Twilio Token</label>
               <input type="text" name="twilioToken" placeholder="Account twilioToken" value={formData.twilioToken} onChange={handleChange} required />
             
               <br />
-              <button className="submit-b" type="submit">Import Twilio Number</button> </>}
+              <div style={{display: 'flex', columnGap:'5px'}}> 
+              <button className="submit-b" type="submit">Import Number</button>
+             
+              </div>
+               </>}
 
           </div>
         </form>
@@ -353,8 +360,14 @@ console.log(outAssistant)
         </div>
       )}
 
-<div style={{ display: 'flex', flex: '.83', flexDirection: 'column', rowGap: '8px' }}>
-<div className="btn-new" style={{cursor:'pointer', backgroundColor: '#f2f2f2', padding: '10px'}}onClick={() => setModal(true)}>+ Import Twilio Number</div>
+<div style={{ display: 'flex', flex: '.87', flexDirection: 'column', rowGap: '8px' }}>
+<div style={{display:'flex', columnGap:'5px'}}>  
+<div className="btn-new" style={{cursor:'pointer', display: 'flex', textAlign: 'center', justifyContent: 'center', alignItems: 'center',
+  backgroundColor: '#f2f2f2',fontSize: '14px', flex: '1', padding: '10px'}}
+  onClick={() => setModal(true)}> <span>Import Number</span></div>
+<button className="btn-new" style={{cursor:'pointer', 
+  backgroundColor: '#f2f2f2', flex: '1',fontSize: '14px',padding: '10px'}} > Buy a Number</button></div>
+
 <div style={{ display: 'flex', flexDirection: 'column', height: '550px', overlowy: 'scroll', cursor: 'pointer', rowGap: '8px' }}>
 {phone?.map((assistant, index) => (
 <div onClick={() => setSelected(assistant)} style={{cursor:'pointer', backgroundColor: '#f2f2f2', padding: '10px'}} className="btn-new" key={index}>{assistant.number}</div>

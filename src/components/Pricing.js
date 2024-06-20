@@ -128,16 +128,16 @@ const closeModal = () => {
 
 </>}
 
-<h1  className="pricing-text" style={{color: '#34a853',fontSize:'36px', color:'white', marginTop: '5px'}}>Pricing & Plans</h1>
-<p  className="pricing-text"  style={{ color: '#34a853', fontSize:'18px', marginTop: '-5px', marginBottom:'18px'}}>Find your perfect fit</p>
+<h1  className="pricing-text" style={{color: '#34a853', top: '-65px', position:'relative', borderBottom:'2px solid white',fontSize:'30px', color:'white', marginBottom:'2px'}}>Pricing & Plans</h1>
+
 <div style={{alignItems: 'end'}}className='pricing-wrap'>
  
       
-<div className="pricing-tier pro">
-        <h2 style={{color: 'gray'}} className="tier-title">Starter</h2>
+<div style={{height:"85%"}} className="pricing-tier pro">
+        <h2 style={{color: 'gray',fontSize: '22px', marginBottom: '0px'}} className="tier-title">Starter</h2>
         <div className="price">$89/month</div>
         <ul className="features-list">
-        <li>AI Phone Calling</li>
+       
           <li>Up to 2 Agents</li>
           <li>90,000 tokens</li>
           <li>Basic Support</li>
@@ -151,11 +151,11 @@ const closeModal = () => {
         <a href="/signup?plan=basic" style={{width:'100%'}}>  <button style={{width:'100%'}}  className="btn">Get Started</button></a> 
       </div>
       
-      <div className="pricing-tier pro">
-        <h2 style={{color: 'green'}} className="tier-title">Standard</h2>
+      <div style={{height:"85%"}}  className="pricing-tier pro">
+        <h2 style={{color: 'green' , fontSize: '22px',marginBottom: '0px'}} className="tier-title">Standard</h2>
         <div className="price">$249/month</div>
         <ul className="features-list">
-        <li>AI Phone Calling</li>
+       
           <li>Up to 6 Agents</li>
           <li>400,000 tokens</li>
           <li>Standard Support</li>
@@ -169,11 +169,11 @@ const closeModal = () => {
         <a href="/signup?plan=standard" style={{width:'100%'}}>  <button style={{width:'100%'}}  className="btn">Get Started</button></a> 
       </div>
 
-      <div className="pricing-tier premium">
-        <h2 style={{color: 'purple'}} className="tier-title">Enterprise ✨</h2>
+      <div style={{height:"85%"}}  className="pricing-tier premium">
+        <h2 style={{color: 'purple', fontSize: '22px',marginBottom: '0px'}} className="tier-title">Enterprise ✨</h2>
         <div className="price">Talk to sales</div>
         <ul className="features-list">
-          <li>AI Phone Calling</li>
+         
           <li>Unlimited Agents</li>
           <li>Custom pricing</li>
           <li>Priorty Support</li>
