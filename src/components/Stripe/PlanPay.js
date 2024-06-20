@@ -47,6 +47,14 @@ useEffect(() => {
   getFlow();
 }, [failed]);
 
+useEffect(() => {
+  if (
+ user?.plan == "standard") { 
+
+  setSelected("Standard")
+ }
+}, []);
+
  
 const handlePay = async (e) => {
       e.preventDefault();
