@@ -24,7 +24,9 @@ function App() {
  
       </div>
       <div className={styles.loginContainer}>
-     {/**   <a href="/docs">  <div  className={styles.navBtn}style={{cursor: 'pointer'}}>Docs</div></a>*/}
+      <a href="https://docs.seedley.net" target="_blank">  <div  className={styles.navBtn}style={{cursor: 'pointer'}}>Docs</div></a>
+      
+      
       <a href="/pricing">  <div className={styles.navBtn}style={{cursor: 'pointer'}}>Pricing</div></a>
       <a href="/login">  <div className={styles.navBtn}style={{cursor: 'pointer'}}>Login</div></a> 
         <a href="/signup"><button className={styles.gradientButton} style={{ cursor: 'pointer', fontSize: '16px', fontWeight: '700', borderRadius: '5px' }}>
