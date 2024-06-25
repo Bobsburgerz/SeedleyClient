@@ -42,11 +42,17 @@ const Form = () => {
  useEffect(() => {
   const url = new URL(window.location.href);
   const planParam = url.searchParams.get('plan');
+  const confirmParam = url.searchParams.get('confirm');
  
-if (!planParam) {
-  navigate('/pricing')
-} else {
+if (planParam) {
   setPlan(planParam)
+ 
+} else if (confirmParam) {
+  return
+}
+  else
+  {
+  navigate('/pricing')
 }
   
 }, [])

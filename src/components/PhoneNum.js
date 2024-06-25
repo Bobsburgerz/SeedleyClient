@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import './styles/Dashboard.css';
 const Modal = ({ onClose, isDelete, selected, setSelected, setDelete }) => {
   const phone = useSelector((state) => state.phoneNum);
-  const [deleteNumber, { isDeleteError }] = useDeleteNumberMutation();
+  const [deleteNumber] = useDeleteNumberMutation();
   const [saveNumber, { isSaveError }] = useAddNumberMutation();
   const user = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
@@ -381,11 +381,6 @@ console.log(outAssistant)
 style={{ borderRadius: '5px',background: '#fbfbfb', height: '31.1px', cursor: 'pointer' }}>
 <img src={Delete} style={{ width: '18px' }} /> </button> </>}
 </div>
-
-
-
-
-
         
         {phone.length >= 1 ? (
           <>
