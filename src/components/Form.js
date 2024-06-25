@@ -54,7 +54,7 @@ if (planParam) {
   {
   navigate('/pricing')
 }
-  
+   
 }, [])
 
   useEffect(() => {
