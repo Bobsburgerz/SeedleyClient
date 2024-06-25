@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "./styles/Pricing.css"
 import axios from 'axios';
 
+import { useSearchParams } from 'react-router-dom';
 
 
 const Modal = ({ onClose, setSuccess }) => {
@@ -102,7 +103,7 @@ try {
   );
 };
 const PricingPage = () => {
-
+  const [searchParams] = useSearchParams();
 const [open, setOpen] = useState()
 const [success, setSuccess] = useState(false)
 useEffect(() => {
@@ -113,6 +114,13 @@ useEffect(() => {
  }, 2000)
 },[success])
 
+
+useEffect(() => {
+  const hasContactParam = searchParams.get('contact');
+  if (hasContactParam === 'true') {
+    setOpen(true);
+  }
+}, [searchParams]);
 
 const closeModal = () => {
   setOpen(false)

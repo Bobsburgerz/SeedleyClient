@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
-import Phone from "./assets/phone.png"
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import  InSVG from './assets/call-incoming.svg';
 import  OutSVG from './assets/call-outgoing.svg';
 import Filter from "./assets/edit.png"
@@ -8,17 +7,12 @@ import "./styles/Calls.css"
 const Calls = () => {
   const callArray = useSelector((state) => state.calls);
   const calls = callArray.filter(call => call.type !== "web").reverse();
-  const [isOpt, setIsOpt] = useState("Model");
-  const [assistants, setAssistants] = useState([{ script: "", name: `3-20 9:24am 224 545-4354` }]);
   const [selected, setSelected] = useState(calls[0]  || {transcription:[]});
-  const [isModal, setModal] = useState(false);
   const audioRef = useRef(null);  
- 
-  const handlePlay = (call) => {
   
+  const handlePlay = (call) => {
    setSelected(call)
     if (audioRef.current && !audioRef.current.paused) {
-   
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }   
@@ -143,14 +137,14 @@ const Calls = () => {
 
           <div style={{ fontSize: "12px", marginRight:'0px', marginTop: '-5px', alignItems: 'center', display:'flex', columnGap: '15px', color: "gray" }}>
           <div>  {formattedDateTime}     </div>             <img   onClick={() => {
-    // Check if the index already exists in the array
+     
     const indexExists = favorite.includes(index);
     
     if (indexExists) {
-      // If it exists, remove it
+    
       setFavorite(favorite.filter(item => item !== index));
     } else {
-      // If it doesn't exist, add it
+  
       setFavorite([...favorite, index]);
     }
   }}style={{width:'18px', height:'18px' }} src={ favorite.includes(index) ? "https://res.cloudinary.com/dojwag3u1/image/upload/v1717195891/star_1_erikvu.png": "https://res.cloudinary.com/dojwag3u1/image/upload/v1717195891/star_a3cdvl.png" }/>

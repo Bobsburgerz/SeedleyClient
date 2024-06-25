@@ -2,69 +2,23 @@ import React, { useState , useEffect} from 'react';
 import axios from "../api/axios";
 import { useSelector , useDispatch} from "react-redux";
 import Delete from "./assets/delete.png";
-import { useDeleteAssistantMutation } from "../services/appApi";
 import { useAddAssistantMutation } from "../services/appApi";
 import { updateAssistants } from '../features/assistantSlice';
-import AssistantTemplates from './AssistantComponents/AssistantTemplates';
+import AssistModal from './AssistantComponents/Modals/AssistantModal';
 import Stream from "./StreamAudio";
 import Upload from './AssistantComponents/UploadLeads';
 import Toggle from './AssistantComponents/Toggle';
 import UploadDoc from './AssistantComponents/UploadDocument';
+import Modal from './AssistantComponents/Modals/DeleteAssistant';  
+
  
-const AssistModal = ({ onClose, addAssistant}) => {
-  return (
-    <div style={{ zIndex: '9999999999999999' }} className="modal">
-   <div style={{ minWidth: '400px', color: 'black', padding:'20px' }} className="modal-content">
-    <div className="flex-end">
-
-   <div style={{ cursor: 'pointer', marginTop: '-10px', marginRight: '-12px', zIndex: '99999999' }} 
-   onClick={() => onClose()} className="closer-btn-2"> <div>x</div> </div>
-    </div>  
-
-
-       <h2>Choose your assistant </h2>
-
-  <AssistantTemplates onClose={onClose} />
-<div className="flex-end">
-  <p onClick={() => addAssistant()} className="wht-btn"> <b>OR</b> start from scratch </p></div>
-      </div>
-    </div>
-  );
-};
-
-
-const Modal = ({ onClose, selected , setSelected}) => {
-   
-  const [deleteAssistant] = useDeleteAssistantMutation();
-  
-  const handleSubmit = async (e) => {
-deleteAssistant(selected)
-setSelected()
-    onClose()
-  };
-
-  return (
-    <div style={{ zIndex: '9999999999999999' }} className="modal">
-      <div style={{ maxWidth: '350px', textAlign : 'center', color: 'black', padding:'0px' }} className="modal-content">
-      <div className="closer-wrap-2">
-              <div style={{ cursor: 'pointer' , marginRight: '5px', marginTop: '5px' }} onClick={() => onClose()} className="closer-btn-2"> <div>x</div> </div>
-            </div>
-            <div style={{padding: '15px'}}>
-       <h2 style={{marginTop: '25px'}}>Are you sure you want to delete your assistant? </h2>
-       <p>This is permanent and can't be undone </p>
-       <button className="btn-new"   style={{ cursor: 'pointer' , width: '100%', color : 'red', fontWeight: '700'}}  onClick={() => handleSubmit()}> Delete Permanently</button> </div>
-      </div>
-    </div>
-  );
-};
 const Assistant = () => {
 const dispatch = useDispatch()
 const [isOpen, setIsOpen] = useState(false);
   const assistantsArray = useSelector((state) => state.assistants);
   const user = useSelector((state) => state.user);
-
-  const [addAssis, { isAddError }] = useAddAssistantMutation();
- const [func, setFunc] = useState("")
+  const [addAssis] = useAddAssistantMutation();
+  const [func, setFunc] = useState("")
   const [isOpt,  setIsOpt] = useState("Model");
   const [filteredData, setFilteredData] = useState([]);
 
@@ -88,29 +42,32 @@ const [isOpen, setIsOpen] = useState(false);
         console.error(error);
       });
   }, []);  
-const newAssistant = {
-  name: 'New Assistant',
-    owner: user._id,
-  firstMessage: 'Hello how can I assist you?',
   
-  prompt:`Prompt goes here`}
+  const newAssistant = {
+  name: 'New Assistant',
+  owner: user?._id,
+  firstMessage: 'Hello how can I assist you?',
+  prompt:`Prompt goes here`
+}
 
   const assistants = assistantsArray
   const [selected, setSelected] = useState(assistants[0]);
   const [prompt, setPrompt] = useState( assistants[0]?.prompt)
   const [firstMsg, setFirstMsg] = useState(assistants[0]?.firstMessage)
- const [contacts, setContacts] = useState(assistants[0]?.contacts ? assistants[0]?.contacts : [])
- const [knowledgeBase, setKnowledgeBase] = useState(assistants[0]?.knowledgeBase ? assistants[0]?.knowledgeBase :[]);
-const [isOn, setIsOn] = useState(false)
-
+  const [contacts, setContacts] = useState(assistants[0]?.contacts ? assistants[0]?.contacts : [])
+  const [knowledgeBase, setKnowledgeBase] = useState(assistants[0]?.knowledgeBase ? assistants[0]?.knowledgeBase :[]);
+  const [isOn, setIsOn] = useState(false)
+  const [success, setSuccess] = useState(false)
+  const [assistModal, setAssistModal] = useState(false)
  
- 
 
+  const openAssistModal = () => {
+    setAssistModal(true)
+  }
 
   useEffect(() => {
   
     if (assistants.length > 0) {
-
       setSelected(
         assistants[0]
       )
@@ -119,35 +76,20 @@ const [isOn, setIsOn] = useState(false)
       setContacts(assistants[0]?.contacts ? assistants[0]?.contacts : [])
       setKnowledgeBase(assistants[0]?.knowledgeBase || []);
     }
-  
- 
   }, [assistants.length]);
 
 
-  const [success, setSuccess] = useState(false)
+
   useEffect(() => {
-  
-    if (success) {
-
-setTimeout(() => {
-setSuccess(false)
-
-    }, 1700)
-    }
-  
- 
+   if (success) {
+   setTimeout(() => {
+   setSuccess(false)}, 1700)}
   }, [success]);
-
-  const [assistModal, setAssistModal] = useState(false)
-  const openAssistModal = () => {
-    setAssistModal(true)
-  }
-
+ 
+  
    
   useEffect(() => {
-    const prevAssis = assistantsArray.find((assistant) => assistant._id === selected?._id);
- 
-  
+    const prevAssis = assistantsArray.find((assistant) => assistant._id === selected?._id); 
     const updateAssistantData = async () => {
       if (prevAssis !== selected) {
         try {
@@ -298,7 +240,6 @@ const addAssistant = async () => {
   return (
     <div className="flex-cont-1">{assistModal && <><AssistModal onClose={() =>  setAssistModal(false)} 
     addAssistant={() => addAssistant()} /></>}
-
       <div style={{display:'flex', flex: '.83', flexDirection:'column', rowGap: '8px'}}>
       <div style={{cursor:'pointer', background: '#f2f2f2', padding: '10px'}} className="btn-new" 
       onClick={() => openAssistModal()}>+ Add an Assistant</div>
@@ -307,18 +248,14 @@ const addAssistant = async () => {
           <div style={{color: selected?._id == assistant?._id ? "green" : 'black', backgroundColor: '#f2f2f2'}} 
           onClick={() => onSelect(assistant)}className="btn-new"
            key={index}>{assistant?.name} 
-       
            <div style={{color: selected?._id == assistant?._id ? "green" : 'gray', fontSize: '12px'}}>{assistant?._id} </div></div>
         ))}
 
       </div>
-
       </div>
 
 
       <div style={{flex:'2.6', width: '68%'}}>
-
-
 <div style={{display:'flex', alignItems: 'center',
 padding: '0px 16px',justifyContent: 'space-between'}} className={selected ? "title-box" : ""}>
 <div style={{display:'flex', flexDirection: 'column'}}>
@@ -493,39 +430,11 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 </div>
 
 <button>
-  
-  
-  
-  
-   </button>
-{/** 
- <select style={{background: '#fbfbfb'}}  value={func} onChange={(e) => setFunc(e.target.value)}className="voice-select" >
-  <option value="none">No function selected</option> 
-
-  
-
-  <option value="link"> Send a Text</option> 
-   
-</select> */}
-{ func == "link" ? <><div> 
-  
-
-
-  <h3>Description</h3>
-  <input placeholder="Send the text when this happens ..." style={{background: '#f2f2f2'}}  />
-  
-  <h3> Send a text message </h3>
-<input style={{background: '#f2f2f2'}}   />
-
-
-</div> </> : <> </> }
-
-
-
+</button>
 </div>
 </> : <>  {isOpt == "KnowledgeBase" && <div  className="func-item-parent"> 
 
-  
+
 <p style={{marginBottom:'10px', paddingBottom:'5px'}}>Upload a document to reference</p>
       <UploadDoc
                 addKnowledgeBase={addKnowledgeBase}

@@ -365,7 +365,7 @@ console.log(outAssistant)
 <div className="btn-new" style={{cursor:'pointer', display: 'flex', textAlign: 'center', justifyContent: 'center', alignItems: 'center',
   backgroundColor: '#f2f2f2',fontSize: '14px', flex: '1', padding: '10px'}}
   onClick={() => setModal(true)}> <span>Import Number</span></div>
-<button className="btn-new" style={{cursor:'pointer', 
+<button className="btn-new" style={{cursor:'pointer', opacity: '.5',
   backgroundColor: '#f2f2f2', flex: '1',fontSize: '14px',padding: '10px'}} > Buy a Number</button></div>
 
 <div style={{ display: 'flex', flexDirection: 'column', height: '550px', overlowy: 'scroll', cursor: 'pointer', rowGap: '8px' }}>

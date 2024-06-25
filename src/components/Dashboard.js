@@ -41,7 +41,7 @@ const [isOpen, setIsOpen] = useState(false)
   const [show, setShow] = useState('')
   const [option, setOption] = useState('Assistants')
   const user = useSelector((state) => state.user)
-  const userId = user._id;
+  const userId = user?._id;
   const location = useLocation();
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -55,7 +55,7 @@ const [isOpen, setIsOpen] = useState(false)
   }, [location.search]);
   useEffect(() => {
     const getFlow = async () => {
-   const res = await axios.get(`/dashboard-data/${user._id}`)
+   const res = await axios.get(`/dashboard-data/${user?._id}`)
  
    if (res.data) {
  
@@ -67,7 +67,7 @@ const [isOpen, setIsOpen] = useState(false)
     }, []);
 
     useEffect(() => {
-  if(user.paid == false) {
+  if(user?.paid == false) {
 setIsOpen(true)
  
   }

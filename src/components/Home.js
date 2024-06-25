@@ -27,8 +27,8 @@ function App() {
       <a href="https://docs.seedley.net" target="_blank">  <div  className={styles.navBtn}style={{cursor: 'pointer'}}>Docs</div></a>
       
       
-      <a href="/pricing">  <div className={styles.navBtn}style={{cursor: 'pointer'}}>Pricing</div></a>
-      <a href="/login">  <div className={styles.navBtn}style={{cursor: 'pointer'}}>Login</div></a> 
+      <a href="/pricing"><div className={styles.navBtn}style={{cursor: 'pointer'}}>Pricing</div></a>
+      <a href="/login"><div className={styles.navBtn}style={{cursor: 'pointer'}}>Login</div></a> 
         <a href="/signup"><button className={styles.gradientButton} style={{ cursor: 'pointer', fontSize: '16px', fontWeight: '700', borderRadius: '5px' }}>
           Sign up</button>
           </a>
@@ -75,15 +75,11 @@ function App() {
             <h1 className={styles.main_text} style={{ marginTop: '-23px'}}>Made Simple</h1>
 
             <div style={{ display: 'flex', columnGap: '12px', marginTop: '10px' }}>
-            <a href="/signup">        <button
-                className={styles.gradient_button4}
-                 
-              
-              >
+            <a href="/pricing?contact=true"><button className={styles.gradient_button4} >
          Get a demo
                <img style={{ width: '28px', height: '28px' }} src="https://res.cloudinary.com/dre1imks8/image/upload/v1715902508/right-arrow_id8bpb.png" />
               </button></a>
-              <a href="/signup">  <button className={styles.gradient_button3}>
+              <a href="/pricing">  <button className={styles.gradient_button3}>
               Sign up
                 <img style={{ width: '28px', height: '28px' }} src="https://res.cloudinary.com/dre1imks8/image/upload/v1715902508/right-arrow_id8bpb.png" />
               </button></a>

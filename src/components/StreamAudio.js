@@ -14,7 +14,7 @@ const App = ({ settings }) => {
   const [loading, setLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const startWebSocket = async () => {
-    const res = await axios.post('https://coldcall.onrender.com/api/incoming/websocket', { userId: user._id, aiid: settings._id, phone: 'web', callId: 'web' , lang: settings.language});
+    const res = await axios.post('https://coldcall.onrender.com/api/incoming/websocket', { userId: user?._id, aiid: settings._id, phone: 'web', callId: 'web' , lang: settings.language});
     let socketurl = "";
     socketurl = res.data.url;
   
@@ -183,16 +183,16 @@ const App = ({ settings }) => {
             className="submit-b2"
             style={{
              boxShadow: '0 0 1px 1px orange',
-              opacity: user.credits < 50 ? '.5' : '1',
+              opacity: user?.credits < 50 ? '.5' : '1',
               padding: '10px',
               background: '#34a853',
               height: '32px',
-              cursor: user.credits < 50 ? 'none' : 'pointer',
+              cursor: user?.credits < 50 ? 'none' : 'pointer',
               display: 'flex',
               columnGap: '8px',
               fontSize: '18px'
             }}
-            onClick={ () =>  user.credits < 50  ? setIsPlaying(false) : startWebSocket()}
+            onClick={ () =>  user?.credits < 50  ? setIsPlaying(false) : startWebSocket()}
           >
             <img style={{ width: '18px' }} src={Phone} /> Speak with assistant
           </button>
@@ -200,7 +200,7 @@ const App = ({ settings }) => {
           
         )}  {isRecording && <>
    <div style={{position :'absolute', marginLeft: '-270px', marginTop: '13px', fontSize:'12px', color: 'gray'}}> <br/><i>Intruptions are supported on phone calls but not web test calls for now*</i> </div> </>}
-        {user.credits < 50 && <div style={{position :'absolute', marginLeft: '-35px'}}> <br/>Not enough credits.    Add more in billing </div>}
+        {user?.credits < 50 && <div style={{position :'absolute', marginLeft: '-35px'}}> <br/>Not enough credits.    Add more in billing </div>}
       </div>
     </div>
   );

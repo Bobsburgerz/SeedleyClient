@@ -131,6 +131,7 @@ console.log(user, user._id)
           <Route path="/enviroment" element={<Enviroment />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/login" element={<Login />} />  
+        
           <Route element={<PrivateRoute/>}>
           <Route path="/dashboard" element={<Dashboard />} />
          </Route>  

@@ -69,7 +69,7 @@ const handlePay = async (e) => {
             payment_method: {
               card: elements.getElement(CardElement),
               billing_details: {
-                email: user.email,
+                email: user?.email,
               },        }   
           });
      
@@ -91,7 +91,7 @@ const handlePay = async (e) => {
           }
 
     setSuccess(true)
-    updateUser({id:user._id, paid:true, credits: amount + user.credits}) 
+    updateUser({id:user?._id, paid:true, credits: amount + user?.credits}) 
       }
       catch (error) {
      console.log('error.message');
@@ -133,13 +133,13 @@ const handlePay = async (e) => {
       <h2>Get Started</h2>{failed && <div style={{color: 'red', position: 'absolute' , top: '8px', right: '15px'}}><h3 > Payment failed </h3> </div> }
       <div className="plan-wrap">
      <div onClick={() => setSelected("Standard")} style={{opacity: selected == "Standard" ?  '1' :  '.3'}} className="plan-card"> 
-      <h1>{user.plan == "standard" ? <>$249</> : <>$89</>}</h1>
-      <p> {user.plan == "standard" ? "Standard" : "Basic"}</p>
+      <h1>$249</h1>
+      <p>Standard</p>
       
       </div>
       <div onClick={() => setSelected("Basic")}style={{opacity: selected == "Basic" ?  '1' :  '.3'}}className="plan-card"> 
-      <h1>{user.plan !== "standard" ? <>$249</> : <>$89</>}</h1>
-      <p> {user.plan !== "standard" ? "Standard" : "Basic"}</p>
+      <h1>$89</h1>
+      <p> Basic</p>
       
       </div></div>
       
@@ -159,7 +159,7 @@ const handlePay = async (e) => {
 
           <button disabled={loading} style={{opacity: loading ? '.5':'1'}}className="pay-btn" type="submit">Checkout</button>
           </> 
-  
+  <div className="trial-btn" onClick={() => onClose()}><div>Or try it for free.</div></div>
       </form></>}
   </div>
     );

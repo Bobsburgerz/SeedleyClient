@@ -7,7 +7,25 @@
 .info-wrap h1 {
     margin: 0;
 }
+.trial-btn {
+    padding: 8px;
+    display: flex;
+    font-size: 12px;
+    text-align: center;
+    justify-content: center;
+    color: gray;
+    font-weight: 400;
+    margin-top: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid rgba(128, 128, 128, 0);
+  }
 
+  .trial-btn:hover {
+   border: 1px solid gray;
+    color: rgb(27, 27, 27);
+    transition: .3s ease-in-out;
+  }
 .plan-wrap {
     display: flex;
     column-gap: 10px;
