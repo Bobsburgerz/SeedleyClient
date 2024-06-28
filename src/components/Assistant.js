@@ -93,7 +93,7 @@ const [isOpen, setIsOpen] = useState(false);
     const updateAssistantData = async () => {
       if (prevAssis !== selected) {
         try {
-          const res = await axios.post("https://pizzaserver.onrender.com/updateAssistant", selected);
+          const res = await axios.post("https://5500-andrewmta-seedleybacken-80dth4pna3v.ws-us114.gitpod.io/updateAssistant", selected);
           dispatch(updateAssistants(res.data));
         } catch (error) {
       
@@ -116,7 +116,7 @@ const [isOpen, setIsOpen] = useState(false);
     const updateAssistantData = async () => {
         if (prevAssis !== selected) {
             try {
-                const res = await axios.post("https://pizzaserver.onrender.com/updateAssistant", selected);
+                const res = await axios.post("https://5500-andrewmta-seedleybacken-80dth4pna3v.ws-us114.gitpod.io/updateAssistant", selected);
                 dispatch(updateAssistants(res.data));
             } catch (error) {
                 console.error('Error updating assistant:', error);

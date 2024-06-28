@@ -11,7 +11,7 @@ const user = useSelector((state) => state.user);
         async function getCode() {
           if (code) {
             try {
-              const res = await axios.get(`https://pizzaserver.onrender.com/redirect?code=${code}&user=${user._id}`);
+              const res = await axios.get(`https://5500-andrewmta-seedleybacken-80dth4pna3v.ws-us114.gitpod.io/redirect?code=${code}&user=${user._id}`);
               navigate('/dashboard');
             } catch (e) {
               console.log('e.message');
