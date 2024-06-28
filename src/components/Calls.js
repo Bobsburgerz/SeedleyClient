@@ -14,7 +14,7 @@ const Calls = () => {
   const calls = callArray.filter(call => call.type !== "web").reverse();
   const [selected, setSelected] = useState(calls[0] || { transcription: [] });
   const audioRef = useRef(null);
-
+  const [favorite, setFavorite] = useState(calls.filter(call => call.favorite));
   const handlePlay = (call) => {
     setSelected(call);
     if (audioRef.current && !audioRef.current.paused) {
@@ -82,10 +82,13 @@ const Calls = () => {
       }
 
       if (typeFilter) {
-        typeMatch = call.type === typeFilter;
-        setIsFilter(true)
+        if (typeFilter === 'favorite') {
+          typeMatch = call.favorite === true;
+        } else {
+          typeMatch = call.type === typeFilter;
+        }
+        setIsFilter(true);
       }
-
     
       if (phoneNumberFilter) {
 
@@ -100,13 +103,29 @@ const Calls = () => {
     setFilteredCalls(filtered);
   };
 
-  const handleFavoriteToggle = async (callId) => {
+  const handleFavoriteToggle = async (call) => {
     try {
+ 
      
-    const res = await axios.put('/updateCall', { _id: callId, favorite: true , userId: user._id});
-   console.log(res.data)
-
-   dispatch(updateCalls(res.data))
+        const idExists = favorite.includes(call);
+        
+        if (idExists) {
+        
+          setFavorite(favorite.filter(item => item !== call));
+          const res = await axios.put('/updateCall', { _id: call._id, favorite: false , userId: user._id});
+          
+       
+          dispatch(updateCalls(res.data))
+        } else {
+      
+          setFavorite([...favorite, call]);
+          const res = await axios.put('/updateCall', { _id: call._id, favorite: true , userId: user._id});
+   
+       
+          dispatch(updateCalls(res.data))
+        }
+    
+   
  
     } catch (error) {
       console.error('Error toggling favorite:', error);
@@ -127,7 +146,7 @@ const Calls = () => {
     <div className="flex-cont-1">
       <div style={{ display: 'flex', flex: '1.2', flexDirection: 'column', rowGap: '8px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', background: '#f2f2f2', alignItems: 'center' }} className="btn-new">
-          <div>Search Phone Call Logs </div>
+          <div>Search Phone Call Logs  </div>
           <img onClick={() => setFilters(!filters)} style={{ width: '30px', cursor: 'pointer' }} src={Filter} />
         </div>
 
@@ -176,8 +195,8 @@ const Calls = () => {
                     <div style={{ fontSize: "12px", marginRight: '0px', marginTop: '-5px', alignItems: 'center', display: 'flex', columnGap: '15px', color: "gray" }}>
                       <div>  {formattedDateTime}     </div>
                       <img  
-                    onClick={() => handleFavoriteToggle(call._id)}
-                       style={{ width: '18px', height: '18px' }} src={call.favorite ? "https://res.cloudinary.com/dojwag3u1/image/upload/v1717195891/star_1_erikvu.png" : "https://res.cloudinary.com/dojwag3u1/image/upload/v1717195891/star_a3cdvl.png"} />
+                    onClick={() => handleFavoriteToggle(call)}
+                       style={{ width: '18px', height: '18px' }} src={favorite.includes(call) ? "https://res.cloudinary.com/dojwag3u1/image/upload/v1717195891/star_1_erikvu.png" : "https://res.cloudinary.com/dojwag3u1/image/upload/v1717195891/star_a3cdvl.png"} />
                     </div>
                   </div>
                   <div style={{ display: "flex", width: '98px', marginTop: '2px', justifyContent: "space-between" }}> <div>To:</div> <div style={{ marginLeft: '25px' }}>{call.toNumber}</div> </div>

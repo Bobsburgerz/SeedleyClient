@@ -282,8 +282,7 @@ console.log(outAssistant)
 
     try {
     const res = await axios.post('https://coldcall.onrender.com/outbound-live', { phone: num, twilNum, aiid: selectedAssistantId, userId: user._id, SID, token , lang: lang});
-
-    console.log(res.data)
+ 
     setDial(false)
     setDialSuccess(true)
 

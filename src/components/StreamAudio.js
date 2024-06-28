@@ -18,7 +18,7 @@ const App = ({ settings }) => {
     let socketurl = "";
     socketurl = res.data.url;
   
-    console.log("getUserMedia supported.", socketurl);
+   
     try {
       const constraints = {
         audio: {

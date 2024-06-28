@@ -68,7 +68,7 @@ const App = () => {
 
   const getUsage = async () => {
     try {
-console.log(user, user._id)
+ 
       const res = await axios.get(`/usage?userId=${user._id}`);
  
       if (res.data.usage && res.data.credits) {
@@ -80,7 +80,7 @@ console.log(user, user._id)
   };
 
 
-  console.log("user", user)
+ 
 
 
   useEffect(() => {
