@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ReactFlowProvider } from 'reactflow';
 import { useDispatch, useSelector } from 'react-redux';
@@ -56,14 +56,18 @@ const App = () => {
   const user = useSelector((state) => state.user);
 
 
-  useEffect(() => {
+  const socketRef = useRef(null);
 
+
+  useEffect(() => {
+if (user) {
     const intervalId = setInterval(() => {
       getUsage();
-    },  60000);  
+     
+    },  30000);  
     return () => {
       clearInterval(intervalId);
-    };
+    };}
   }, []);  
 
   const getUsage = async () => {
@@ -84,41 +88,68 @@ const App = () => {
 
 
   useEffect(() => {
-    const socket = new WebSocket(`wss://coldcall.onrender.com/react-app?userId=${user?._id}`);
-  
-    socket.addEventListener('message', async (event) => {
-      try {
-        const message = event.data;
-        let parsedMessage = message; // Assilt
- 
-        // Check if the message is a string
-        if (typeof message === 'string') {
-          try {
-            parsedMessage = JSON.parse(message);
-    
-          } catch (error) {
-            // Handle the error when parsing fails
-            console.error('Error parsing JSON message:', error);
+    const connectSocket = () => {
+      const socket = new WebSocket(`wss://coldcall.onrender.com/react-app?userId=${user?._id}`);
+      socketRef.current = socket;
+
+      socket.addEventListener('message', async (event) => {
+        try {
+          const message = event.data;
+          let parsedMessage = message;
+
+          // Check if the message is a string
+          if (typeof message === 'string') {
+            try {
+              parsedMessage = JSON.parse(message);
+            } catch (error) {
+              // Handle the error when parsing fails
+              console.error('Error parsing JSON message:', error);
+            }
           }
+
+          if (parsedMessage.calls && parsedMessage.user) {
+            await updateUser({ id: user._id, credits: parsedMessage.user.credits, usage: parsedMessage.user.usage });
+            dispatch(updateCalls(parsedMessage.calls));
+          }
+        } catch (error) {
+          console.error('Error handling WebSocket message:', error);
         }
-  
- 
- 
-        if (parsedMessage.calls && parsedMessage.user) {
-       await  updateUser({id:user._id, credits:parsedMessage.user.credits , usage:parsedMessage.user.usage})
-        dispatch(updateCalls(parsedMessage.calls))
-        }
-  
-       
-      } catch (error) {
-        console.error('Error handling WebSocket message:', error);
-      }
-    });
-  
-    return () => {
-      socket.close();
+      });
+
+      socket.addEventListener('close', (e) => {
+        console.log('Socket is closed');
+        setTimeout(() => {
+          connectSocket();
+        }, 5000);
+      });
+
+      socket.addEventListener('error', (err) => {
+        console.error('Socket encountered error: ', err.message, 'Closing socket');
+        socket.close();
+      });
     };
-  }, []);
+
+    connectSocket();
+
+    const interval = setInterval(() => {
+      if (socketRef.current && socketRef.current.readyState !== WebSocket.OPEN) {
+        console.log('Socket is not open. Reconnecting...');
+        socketRef.current.close();
+        connectSocket();
+      } else {
+     return
+      }
+    }, 1000);  
+
+    return () => {
+      clearInterval(interval);
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
+    };
+  }, [user?._id, dispatch]);
+
+
   return (
     <>
       <ReactFlowProvider>
