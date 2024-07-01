@@ -347,7 +347,22 @@ console.log(outAssistant)
                 <h2 style={{ marginTop: '0px', zIndex: '97' }}>Make a single call</h2>
                 <p>Have your AI reach out to a single person</p>
                 <label>Your phone number</label>
-                <input   disabled={user.credits < 50}     style={{opacity: user.credits < 50 ? ".5" : "1"}} type="text" name="phone" value={num}  onChange={(e) => setNum(e.target.value.replace(/\s/g, ''))} placeholder="+123456789101" />
+                <input
+  disabled={user.credits < 50}
+  style={{ opacity: user.credits < 50 ? ".5" : "1" }}
+  type="text"
+  name="phone"
+  value={num}
+  maxLength={11}
+  onChange={(e) => {
+    const newValue = e.target.value.replace(/\D/g, ''); // Remove non-digits
+    if (newValue.length <= 11) {
+      setNum(newValue);
+    }
+  }}
+  placeholder="12345678910"
+/>
+ 
                 <br />
                 <button
                 disabled={user.credits < 50}
