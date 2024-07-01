@@ -1,0 +1,10 @@
+Monthly Pricing.    check
+ 
+Security (cloudfare? JWT)
+Teams? 
+ 
+Buy a Number                                   check
+Add Responsive Block
+Set inbound
+Maybe build CRM
+Webhook
