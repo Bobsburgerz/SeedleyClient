@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+ 
+import React, {   useState } from "react";
  import Checkout from "./Stripe/Checkout"
- import axios from "../api/axios";
+ 
  import { useSelector , useDispatch} from "react-redux";
 
  const Modal = ({ onClose}) => {
@@ -15,8 +15,8 @@ import React, { useEffect, useState } from "react";
 };
 const Billing = () => {
   const user = useSelector((state) => state.user);
-  const userCredit = 60
-  const userUsage = 60 * .0070
+  const currentDate = new Date();
+  const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
   const [open, setOpen] = useState(false)
 const onClose =() => {
   setOpen(false)
@@ -26,8 +26,8 @@ const onClose =() => {
 
   <div style={{display:'flex', columnGap: '25px', padding: '15px'}}>
   <div className="title-box" style={{ padding: '25px',rowGap: '15px', fontSize:'21px', display:'flex' , justifyContent: 'space-between', minHeight: '540px' }}>
-  <div style={{  display: 'flex', flexDirection: 'column', rowGap: '15px' }}> <div style={{fontWeight:'700', color: 'orange',marginRight:'15px'}}>June</div > 
-  <div onClick={() => setOpen(true)} className="sel-bill"style={{fontWeight:'700', cursor:'pointer',marginRight:'15px'}}>Add Credits</div > 
+  <div style={{  display: 'flex', flexDirection: 'column', rowGap: '15px' }}> <div style={{fontWeight:'700', color: 'orange',marginRight:'15px'}}>{currentMonth}</div > 
+ 
   
    {open && <Modal onClose={() => setOpen(false)} /> }
   </div>
