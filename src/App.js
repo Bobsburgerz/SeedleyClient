@@ -73,7 +73,8 @@ if (user) {
   const getUsage = async () => {
     try {
  
-      const res = await axios.get(`/usage?userId=${user._id}`);
+      const res = await axios.post(`/user/usage`, {userId:user._id});
+
  
       if (res.data.usage && res.data.credits) {
         await updateUser({ id: user._id, usage: res.data.usage, credits: res.data.credits });

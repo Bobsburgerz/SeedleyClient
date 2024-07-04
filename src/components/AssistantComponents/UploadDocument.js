@@ -30,9 +30,6 @@ addKnowledgeBase(uploadResponse.data.secure_url, file.name)
         }
     };
 
-    const postData = async (keys, url) => {
-        await axios.post('/save-doc', keys, url)
-    }
 
     const handleFileUpload = async (event) => {
         const files = Array.from(event.target.files);

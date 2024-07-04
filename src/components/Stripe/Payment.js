@@ -68,9 +68,9 @@ const getFlow = async () => {
  
   setLoading(true)
   
-  const cards = await axios.get(`/payments?customerId=${user.customer}`)
+  const cards = await axios.get(`/stripe/payments?customerId=${user.customer}`)
       
-  const getSecret = await axios.post("/create-payment", {amount, customer:user?.customer})
+  const getSecret = await axios.post("/stripe/create-payment", {amount, customer:user?.customer})
   setSecret( getSecret?.data?.paymentIntent.client_secret)
   setCard(cards?.data?.cards?.data)
    

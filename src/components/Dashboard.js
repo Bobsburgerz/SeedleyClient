@@ -55,7 +55,7 @@ const [isOpen, setIsOpen] = useState(false)
   }, [location.search]);
   useEffect(() => {
     const getFlow = async () => {
-   const res = await axios.get(`/dashboard-data/${user?._id}`)
+   const res = await axios.get(`/user/dashboard-data/${user?._id}`)
  
    if (res.data) {
  
@@ -94,7 +94,7 @@ const flow = []
     { label: 'Assistants'  },
     { label: 'Phone Numbers' },
     { label: 'Calls'},
-    { label: 'Enviroment'}
+ 
   ];
   
 
@@ -143,7 +143,7 @@ const flow = []
         </div>
 {isOpen  &&  <>  <Modal onClose={() => setIsOpen(false)} /></>}
         <div onClick={() => setOption("Billing")} className="nav-side"style={{  bottom: '70px', padding: '10px',color:'#f2f2f2', width: '215px',
-          boxShadow: '1px 4px 8px rgba(0, 0, 0, 0.2)', margin: '0px 15px',  position:'absolute', opacity: '1',
+          boxShadow: '1px 4px 8px rgba(0, 0, 0, 0.2)', margin: '0px 15px',  cursor: 'pointer', position:'absolute', opacity: '1',
           borderRadius: '5px' }}>
       Billing
         </div>
@@ -157,7 +157,7 @@ const flow = []
         <div style={{width:'77.5%'}} >
 
 
-          {option == "Assistants" ? <Assistant/> : option == "Calls" ? <Calls/> : option == "Billing"  ?  <Billing/> : option == "Enviroment" ? <Enviroment/> : <PhoneNum/> }
+          {option == "Assistants" ? <Assistant/> : option == "Calls" ? <Calls/> : option == "Billing"  ?  <Billing/>  : <PhoneNum/> }
   
 
   

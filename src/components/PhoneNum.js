@@ -268,7 +268,7 @@ console.log(outAssistant)
 
   const setInbound = async (event, number) => {
     try{
-    await axios.post('/configure-webhook', {aiid: event, twilNum: number, userId: user._id, lang: lang})
+    await axios.post('/phone/configure-webhook', {aiid: event, twilNum: number, userId: user._id, lang: lang})
    
     }catch(
       e
@@ -319,7 +319,7 @@ console.log(outAssistant)
   }, [phone]);
 
   const saveChanges = async () => {
-    await axios.post('/updatePhone',{id: selected._id , callback: callback })
+    await axios.post('/phone/updatePhone',{id: selected._id , callback: callback })
   }
   const openDelete = (number) => {
     setModal(true)

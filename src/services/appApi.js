@@ -82,7 +82,7 @@ export const appApi = createApi({
 
     addNumber: builder.mutation({
       query: (body) => ({
-        url: "/saveNumber",
+        url: "/phone/saveNumber",
         method: "POST",
         body,
       }),
@@ -90,7 +90,7 @@ export const appApi = createApi({
 
     deleteNumber: builder.mutation({
       query: (body) => ({
-        url: "/deleteNumber",
+        url: "/phone/deleteNumber",
         method: "DELETE",
         body,
       }),
@@ -98,7 +98,7 @@ export const appApi = createApi({
 
     addAssistant: builder.mutation({
       query: (assistant) => ({
-        url: "/addAssistant",
+        url: "/assistant/addAssistant",
         method: "POST",
         body:assistant,
       }),
@@ -106,7 +106,7 @@ export const appApi = createApi({
 
     updateAssistant: builder.mutation({
       query: (body) => ({
-        url: "/updateAssistant",
+        url: "/assistant/updateAssistant",
         method: "POST",
         body,
       }),
@@ -114,7 +114,7 @@ export const appApi = createApi({
 
     deleteAssistant: builder.mutation({
       query: (body) => ({
-        url: "/deleteAssistant",
+        url: "/assistant/deleteAssistant",
         method: "DELETE",
         body,
       }),
@@ -140,7 +140,6 @@ export const {
   useUpdateUserMutation,
   useAddNumberMutation,
   useDeleteNumberMutation,
-  useSaveAssistantMutation,
   useDeleteAssistantMutation,
 } = appApi;
 
