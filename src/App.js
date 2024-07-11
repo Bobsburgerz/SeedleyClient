@@ -1,9 +1,6 @@
 import React from 'react';
-<<<<<<< HEAD
-import { useEffect, useState, useRef } from 'react';
-=======
 import { useEffect, useRef, useState } from 'react';
->>>>>>> 773e06fc533864b4c14b3efd5fc6a0f77ca713c3
+ 
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ReactFlowProvider } from 'reactflow';
 import { useDispatch, useSelector } from 'react-redux';
@@ -60,9 +57,7 @@ const App = () => {
   const user = useSelector((state) => state.user);
   const socketRef = useRef(null);
 
-
-  const socketRef = useRef(null);
-
+ 
 
   useEffect(() => {
 if (user) {
@@ -79,8 +74,6 @@ if (user) {
     try {
  
       const res = await axios.post(`/user/usage`, {userId:user._id});
-
- 
       if (res.data.usage && res.data.credits) {
         await updateUser({ id: user._id, usage: res.data.usage, credits: res.data.credits });
       } 
@@ -156,11 +149,7 @@ if (user) {
   }, [user?._id, dispatch]);
 
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 773e06fc533864b4c14b3efd5fc6a0f77ca713c3
+ 
   return (
     <>
       <ReactFlowProvider>

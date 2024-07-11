@@ -357,11 +357,9 @@ console.log(outAssistant)
   value={num}
   maxLength={11}
   onChange={(e) => {
-<<<<<<< HEAD
-    const newValue = e.target.value.replace(/\D/g, '');
-=======
+
     const newValue = e.target.value.replace(/\D/g, ''); // Remove non-digits
->>>>>>> 773e06fc533864b4c14b3efd5fc6a0f77ca713c3
+
     if (newValue.length <= 11) {
       setNum(newValue);
     }
