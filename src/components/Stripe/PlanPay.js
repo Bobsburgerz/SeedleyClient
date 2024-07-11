@@ -2,7 +2,6 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState, useEffect } from "react";
 import axios from "../../api/axios.js";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import CardInput from "./CardInput.js";
 import "./StripeStyles.css";
 import Lottie from 'lottie-react';
@@ -17,7 +16,7 @@ function CheckoutForm({ onClose }) {
   const [selected, setSelected] = useState("Standard");
   const [failed, setFailed] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [updateUser, { isError, isLoading, error }] = useUpdateUserMutation();
+  const [updateUser] = useUpdateUserMutation();
 
   useEffect(() => {
     if (success) {
@@ -89,14 +88,14 @@ function CheckoutForm({ onClose }) {
       const subscriptionResponse = await axios.post('/create-subscription', {
         customerId: user?.customer,
         paymentMethodId: paymentMethod.id,
-        priceId: selected === "Standard" ? 'price_123456789_standard' : 'price_123456789_basic', // Replace with actual price IDs
+        priceId: selected === "Standard" ? 'price_1PXd71J0oWXoHVY4RyCHHOIX' : 'price_1PXd96J0oWXoHVY4ggjF4pbx', // Replace with actual price IDs
       });
 
       const subscription = subscriptionResponse.data.subscription;
 
       if (subscription.status === "active") {
         setSuccess(true);
-        updateUser({ id: user?._id, paid: true, credits: 89000 + user?.credits });
+        updateUser({ id: user?._id, paid: true, credits: selected === "Standard" ? 265000 : 89000 + user?.credits });
       } else {
         setFailed(true);
         setLoading(false);
@@ -124,7 +123,7 @@ function CheckoutForm({ onClose }) {
                 {failed && <div style={{ color: 'red', position: 'absolute', top: '8px', right: '15px' }}><h3>Payment failed</h3></div>}
                 <div className="plan-wrap">
                   <div onClick={() => setSelected("Standard")} style={{ opacity: selected === "Standard" ? '1' : '.3' }} className="plan-card">
-                    <h1>$249</h1>
+                    <h1>$265</h1>
                     <p>Standard</p>
                   </div>
                   <div onClick={() => setSelected("Basic")} style={{ opacity: selected === "Basic" ? '1' : '.3' }} className="plan-card">
@@ -136,7 +135,7 @@ function CheckoutForm({ onClose }) {
             </div>
           </div>
           <>
-            <h3>{selected} {selected === "Standard" ? "$249" : "$89"} per month</h3>
+            <h3>{selected} {selected === "Standard" ? "$265" : "$89"} per month</h3>
             <label htmlFor="card-element">Card Info</label>
             <div style={{ border: failed && '1px solid red' }} className="card-element">
               <CardInput failed={failed} />

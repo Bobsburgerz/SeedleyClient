@@ -161,7 +161,7 @@ const closeModal = () => {
       
       <div style={{height:"85%"}}  className="pricing-tier pro">
         <h2 style={{color: 'green' , fontSize: '22px',marginBottom: '0px'}} className="tier-title">Standard</h2>
-        <div className="price">$249/month</div>
+        <div className="price">$265/month</div>
         <ul className="features-list">
        
           <li>Up to 6 Agents</li>
