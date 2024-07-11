@@ -22,17 +22,21 @@ function CheckoutForm({ onClose }) {
     if (success) {
       setTimeout(() => {
         onClose();
+        onClose();
       }, 1000);
     }
   }, [success]);
 
+ 
   useEffect(() => {
     if (failed) {
       setTimeout(() => {
         setFailed(false);
+        setFailed(false);
       }, 2100);
     }
   }, [failed]);
+
 
   useEffect(() => {
     if (user?.plan === "standard") {
@@ -150,5 +154,5 @@ function CheckoutForm({ onClose }) {
     </div>
   );
 }
-
 export default CheckoutForm;
+

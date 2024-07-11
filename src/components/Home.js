@@ -98,7 +98,7 @@ function App() {
 
 <h2>AI that automates your business communications.</h2>
 
- <h3> Enhance your sales, customer service, or appointment setting efforts with low latencey AI assistants. Discover how Seedley can imporve your business today. </h3>
+ <h3> Enhance your sales, customer service, or appointment setting efforts with low latency AI assistants. Discover how Seedley can improve your business today. </h3>
 </div>
 </div>
 

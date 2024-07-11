@@ -112,14 +112,14 @@ const Calls = () => {
         if (idExists) {
         
           setFavorite(favorite.filter(item => item !== call));
-          const res = await axios.put('/updateCall', { _id: call._id, favorite: false , userId: user._id});
+          const res = await axios.put('/call/updateCall', { _id: call._id, favorite: false , userId: user._id});
           
        
           dispatch(updateCalls(res.data))
         } else {
       
           setFavorite([...favorite, call]);
-          const res = await axios.put('/updateCall', { _id: call._id, favorite: true , userId: user._id});
+          const res = await axios.put('/call/updateCall', { _id: call._id, favorite: true , userId: user._id});
    
        
           dispatch(updateCalls(res.data))

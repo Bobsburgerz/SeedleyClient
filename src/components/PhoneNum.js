@@ -268,7 +268,7 @@ console.log(outAssistant)
 
   const setInbound = async (event, number) => {
     try{
-    await axios.post('/configure-webhook', {aiid: event, twilNum: number, userId: user._id, lang: lang})
+    await axios.post('/phone/configure-webhook', {aiid: event, twilNum: number, userId: user._id, lang: lang})
    
     }catch(
       e
@@ -321,7 +321,7 @@ console.log(outAssistant)
   }, [phone]);
 
   const saveChanges = async () => {
-    await axios.post('/updatePhone',{id: selected._id , callback: callback })
+    await axios.post('/phone/updatePhone',{id: selected._id , callback: callback })
   }
   const openDelete = (number) => {
     setModal(true)
@@ -357,7 +357,11 @@ console.log(outAssistant)
   value={num}
   maxLength={11}
   onChange={(e) => {
+<<<<<<< HEAD
     const newValue = e.target.value.replace(/\D/g, '');
+=======
+    const newValue = e.target.value.replace(/\D/g, ''); // Remove non-digits
+>>>>>>> 773e06fc533864b4c14b3efd5fc6a0f77ca713c3
     if (newValue.length <= 11) {
       setNum(newValue);
     }
