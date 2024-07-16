@@ -286,7 +286,7 @@ padding: '0px 16px',justifyContent: 'space-between'}} className={selected ? "tit
 
 
     <div  onClick={() => setIsOpt("Model")} style={{ backgroundColor : isOpt == "Model" ? '#34a853' : '#fbfbfb' , color: isOpt == "Model" ? '#fbfbfb' : 'black'}} className="opt-sel"> Model</div> 
-    <div onClick={() => setIsOpt("Voice")} style={{ backgroundColor : isOpt == "Voice" ? '#34a853' : '#fbfbfb' , color: isOpt == "Voice" ? '#fbfbfb' : 'black'}} className="opt-sel-mid-1"> Voice </div>
+   {/**   <div onClick={() => setIsOpt("Voice")} style={{ backgroundColor : isOpt == "Voice" ? '#34a853' : '#fbfbfb' , color: isOpt == "Voice" ? '#fbfbfb' : 'black'}} className="opt-sel-mid-1"> Voice </div>*/}
     <div onClick={() => setIsOpt("Functions")} style={{ backgroundColor : isOpt == "Functions" ? '#34a853' : '#fbfbfb' , color: isOpt == "Functions" ? '#fbfbfb' : 'black'}} className="opt-sel-mid-1"> Functions </div>
     {/*<div onClick={() => setIsOpt("Lists")} style={{ backgroundColor : isOpt == "Lists" ? '#34a853' : '#fbfbfb' , color: isOpt == "Lists" ? '#fbfbfb' : 'black'}} className="opt-sel-mid-1"> Lists</div>*/}
   <div onClick={() => setIsOpt("KnowledgeBase")} style={{ backgroundColor : isOpt == "KnowledgeBase" ? '#34a853' : '#fbfbfb' , color: isOpt == "KnowledgeBase" ? '#fbfbfb' : 'black'}} className="opt-sel1"> Knowledge Base</div>
