@@ -286,7 +286,7 @@ padding: '0px 16px',justifyContent: 'space-between'}} className={selected ? "tit
 
 
     <div  onClick={() => setIsOpt("Model")} style={{ backgroundColor : isOpt == "Model" ? '#34a853' : '#fbfbfb' , color: isOpt == "Model" ? '#fbfbfb' : 'black'}} className="opt-sel"> Model</div> 
-   {/**   <div onClick={() => setIsOpt("Voice")} style={{ backgroundColor : isOpt == "Voice" ? '#34a853' : '#fbfbfb' , color: isOpt == "Voice" ? '#fbfbfb' : 'black'}} className="opt-sel-mid-1"> Voice </div>*/}
+    <div onClick={() => setIsOpt("Voice")} style={{ backgroundColor : isOpt == "Voice" ? '#34a853' : '#fbfbfb' , color: isOpt == "Voice" ? '#fbfbfb' : 'black'}} className="opt-sel-mid-1"> Voice </div>
     <div onClick={() => setIsOpt("Functions")} style={{ backgroundColor : isOpt == "Functions" ? '#34a853' : '#fbfbfb' , color: isOpt == "Functions" ? '#fbfbfb' : 'black'}} className="opt-sel-mid-1"> Functions </div>
     {/*<div onClick={() => setIsOpt("Lists")} style={{ backgroundColor : isOpt == "Lists" ? '#34a853' : '#fbfbfb' , color: isOpt == "Lists" ? '#fbfbfb' : 'black'}} className="opt-sel-mid-1"> Lists</div>*/}
   <div onClick={() => setIsOpt("KnowledgeBase")} style={{ backgroundColor : isOpt == "KnowledgeBase" ? '#34a853' : '#fbfbfb' , color: isOpt == "KnowledgeBase" ? '#fbfbfb' : 'black'}} className="opt-sel1"> Knowledge Base</div>
@@ -332,16 +332,20 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 </div>
 </> :  isOpt == "Voice" ? <>
 
-<div style={{width: '100%'}}>
+<div style={{width: '50%'}}>
 <label>Voice</label>
 <select style={{background: '#fbfbfb'}} value={selected?.voice} onChange={(e) => setSelected((prev) =>({ ...prev, voice: e.target.value}))} className="voice-select">
-  <option value="4snlvsRom4mNTPGsYbgB">Amy</option> 
-  <option value="cyc3GBGVz1tNRvmIZQJp">Dave</option> 
-  <option value="t9pa8vZ7tCoTLCLirl6c">Clark</option>
-  <option value="h2sm0NbeIZXHBzJOMYcQ">Mandy</option>
-  {filteredData?.map((opt) => <option value={opt.voice_id}>{opt.name}</option>)}
+  <option value="asteria">Amy</option> 
+  <option value="arcas">Dave</option> 
+  <option value="perseus">Clark</option>
+  <option value="luna">Mandy</option>
+  <option value="zeus">Kevin</option>
+  {/*filteredData?.map((opt) => <option value={opt.voice_id}>{opt.name}</option>)*/}
 </select></div>
+
+{/* 
 <div style={{width: '100%'}}>
+
 <label> Language </label>
 <select value={selected?.language} onChange={(e) => setSelected((prev) =>({ ...prev, language: e.target.value}))}   style={{background: '#fbfbfb'}}  className="voice-select" >
   <option value="en-US">English</option> 
@@ -349,7 +353,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
    
 </select>
  
-</div>
+</div>*/}
  </> :  isOpt == "Functions" ? <>  
  <div style={{width: '50%'}} >
 {isOn && <>
