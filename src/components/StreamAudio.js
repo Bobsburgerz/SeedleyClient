@@ -154,7 +154,7 @@ const App = ({ settings }) => {
         console.log("pause called")
         audioElement.pause();
          }
-      console.log('Recording stopped and WebSocket closed');
+      console.log('Recording stopped and WebSocket closed.');
     }
   };
 
