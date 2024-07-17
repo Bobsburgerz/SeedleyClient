@@ -63,8 +63,11 @@ function Navbar(loading) {
                     </li>
 
                     <li style={styles.navLink}>
+  <a style={{color:'white'}}href="https://docs.seedley.net" target="_blank" rel="noopener noreferrer">
+    Docs
+  </a>
+</li>
 
-                    </li>
 
                   </div>
 
