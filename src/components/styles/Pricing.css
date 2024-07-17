@@ -195,7 +195,7 @@ input:focus {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
   width: fit-content;
-  max-height: 85vh;
+  max-height: 90vh;
   overflow-y: auto;
 }
 
