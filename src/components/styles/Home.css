@@ -18,8 +18,11 @@ width: 100%;
 display:flex;
 justify-content: flex-end;
 }
+
 .card-cont { 
-  display:flex;
+  max-width:800px;
+  display: flex;
+  flex-wrap: wrap;
   column-gap: 15px;
 }
 .wht-btn {
@@ -61,8 +64,8 @@ cursor:pointer
 
 
 .imageCard-img {
-width: 250px;
-height:300px;
+width: 185px;
+height:200px;
 object-fit: cover;
 border-top-left-radius: 5px;
 border-top-right-radius: 5px;
