@@ -13,7 +13,7 @@ const styles = {
       flexDirection: 'column',
       width: '325px',
       padding: '25px',
-      backgroundColor: 'white',
+      backgroundColor: 'rgba(255, 255, 255, 0.78)',
       border: '1px solid #ccc',
       boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.2)',
       borderRadius: '5px',

@@ -164,7 +164,7 @@ if (loading) {
    <div className="pricing-container">
    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
    {success == true && <> <p style={{backgroundColor:'green', color:'white',padding:'5px', borderRadius:'5px' }}>Email confirmed! Login to continue</p></>}
-      <form onSubmit={handleSubmit} style={styles.form}><div style={{textAlign: 'center', backgroundColor: 'white', width: '100%',display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
+      <form onSubmit={handleSubmit} style={styles.form}><div style={{textAlign: 'center',  width: '100%',display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
       <div> <img src={Logo} style={{width: '45px', mrgin: '0px'}} /></div> 
      
      

@@ -167,7 +167,7 @@ confirm ? <>
 
 <div style={styles.form}>
 
-<div style={{textAlign: 'center', width: '100%',display: 'flex', backgroundColor: 'white', justifyContent: 'center', flexDirection: 'column'}}>
+<div style={{textAlign: 'center', width: '100%',display: 'flex', backgroundColor: 'rgba(255, 255, 255, 0.74)', justifyContent: 'center', flexDirection: 'column'}}>
 
 <h3 style={{marginTop: '3px'}}>Great! A code has been sent to your email </h3>
 <p style={{marginTop: '-5px'}}>Enter the code below to continue. </p>
