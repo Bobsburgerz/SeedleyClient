@@ -151,9 +151,9 @@ const closeModal = () => {
           <li>Basic Support</li>
           <li>1 seat included</li>
           <li>Function Calling</li>
-          <li style={{color: 'lightgray'}}>Bulk Calling</li>
-          <li style={{color: 'lightgray'}}>Multi Lingual Models</li>
-          <li style={{color: 'lightgray'}}>Custom Integrations</li>
+          <li style={{textDecoration: 'line-through' }}>Bulk Calling</li>
+          <li style={{textDecoration: 'line-through' }}>Multi Lingual Models</li>
+          <li style={{textDecoration: 'line-through' }}>Custom Integrations</li>
         
         </ul>
         <a href="/signup?plan=basic" style={{width:'100%'}}>  <button style={{width:'100%'}}  className="btn">Get Started</button></a> 
@@ -171,7 +171,7 @@ const closeModal = () => {
           <li>Function Calling</li>
           <li>Bulk Calling</li>
           <li >Multi Lingual Models</li>
-          <li style={{color: 'lightgray'}}>Custom Integrations</li>
+          <li style={{textDecoration: 'line-through' }}>Custom Integrations</li>
         
         </ul>
         <a href="/signup?plan=standard" style={{width:'100%'}}>  <button style={{width:'100%'}}  className="btn">Get Started</button></a> 
