@@ -113,7 +113,7 @@ function App() {
 <h1 className='header-font'>Lightning Fast Responses</h1>
 
  <h3> Leverage natrual sounding agents that respond on average in less than .35 seconds. </h3>
- <h3> Our agents are optimized for latency to delivrer a seamless customer experience  </h3>
+ <h3> Our agents are optimized for latency to deliver a seamless customer experience  </h3>
 </div>
 </div>
 
