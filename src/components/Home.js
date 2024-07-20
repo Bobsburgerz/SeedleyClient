@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState , useEffect} from 'react';
 import styles from './styles/home.module.css'; // Import the CSS module
 import Footer from './HomeComponents/Footer';
  import Sound from "./Sound"
@@ -7,8 +7,28 @@ import Logo from "./assets/Logo.png";
  
  
 function App() {
+  const [navLoaded, setNavLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [modal, setModal] = useState(false)
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setNavLoaded(true);
+      clearTimeout(delay);
+    }, 1000);
+
+    return () => clearTimeout(delay);
+  }, []);
   
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      setIsLoaded(true);
+      clearTimeout(delay);
+    }, 2000);
+
+    return () => clearTimeout(delay);
+  }, []);
+
+
 
   return (
 
@@ -16,7 +36,10 @@ function App() {
  
     <div style={{ borderBottom :'10px solid orange', }} className={styles.App}>
  
-      <div style={{ padding: '15px', display: 'flex', justifyContent: 'center' }}> <div className={styles.nav_container}>
+      <div style={{ padding: '15px', display: 'flex', justifyContent: 'center' }}>
+        
+ 
+         <div style={{ opacity: navLoaded ? '1' : '0'}} className={navLoaded ? styles.nav_container_fadeIn : styles.nav_container}>
  
       <div style={{color: 'white'}}className={styles.logoContainer}>
 
@@ -66,7 +89,7 @@ function App() {
       <BurgerModal/> </>}
       </div>
       <div style={{ padding: '15px', display: 'flex', justifyContent: 'center', flexDirection:'column', alignItems: 'center', textAlign: 'center' ,margin:'70px 0px'}}>
-        <div id="img-parent" className={styles.imgParent}>
+        <div style={{ opacity: isLoaded ? '1' : '0'}}  id="img-parent" className={  isLoaded ? styles.imgParent_fadeIn : styles.imgParent}>
       
           <div  className={styles.words}id="words" style={{ marginLeft: '10px' }}>
             <h1 className={styles.main_text}>Voice <span style={{ color: 'white',
@@ -130,7 +153,7 @@ function App() {
 
 <h1 className='header-font'>Cutting Edge AI Models</h1>
 
- <h3> Gain access to the latest and best AI models available, all in one platform</h3>
+ <h3> Gain access to the latest and best AI models available, all in one platform </h3>
  <h3> Upload your own documents and customize your agents to your needs.  </h3>
 </div>
 </div>

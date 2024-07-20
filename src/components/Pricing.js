@@ -135,8 +135,7 @@ const closeModal = () => {
 <Modal onClose={closeModal} setSuccess={setSuccess}/>
 
 </>}
-
-<h1  className="pricing-text" style={{color: '#34a853', top: '-65px', position:'relative', borderBottom:'2px solid white',fontSize:'30px', color:'white', marginBottom:'2px'}}>Pricing & Plans</h1>
+ 
 
 <div style={{alignItems: 'end'}}className='pricing-wrap'>
  

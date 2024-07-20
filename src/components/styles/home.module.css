@@ -382,6 +382,29 @@ gap: 15px
   transition: .3s ease-in-out;
 }
 
+
+
+ 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* Start slightly below and fade in */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* Fade in to normal position */
+  }
+}
+ 
+
+
+.imgParent_fadeIn{
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 1s ease-in-out forwards; 
+}
   .nav_container {
     align-items: center;
     display: flex;
@@ -393,8 +416,22 @@ gap: 15px
     margin-left: 0px;
     min-width: 50%;
     border-radius: 15px;
+ 
   }
 
+  .nav_container_fadeIn {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff39;
+    border:3px solid orange;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    margin-left: 0px;
+    min-width: 50%;
+    border-radius: 15px;
+    animation: fadeIn 1s ease-in-out forwards; 
+  }
  
 .cursorPointer {
   cursor: pointer;
