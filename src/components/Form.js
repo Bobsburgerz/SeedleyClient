@@ -167,7 +167,7 @@ confirm ? <>
 
 <div style={styles.form}>
 
-<div style={{textAlign: 'center', width: '100%',display: 'flex', backgroundColor: 'rgba(255, 255, 255, 0.74)', justifyContent: 'center', flexDirection: 'column'}}>
+<div style={{textAlign: 'center', width: '100%',display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
 
 <h3 style={{marginTop: '3px'}}>Great! A code has been sent to your email </h3>
 <p style={{marginTop: '-5px'}}>Enter the code below to continue. </p>
@@ -185,7 +185,7 @@ confirm ? <>
 </> :
 
 
-      <form onSubmit={handleSubmit} style={styles.form}><div style={{textAlign: 'center',  backgroundColor: 'white', width: '100%',display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
+      <form onSubmit={handleSubmit} style={styles.form}><div style={{textAlign: 'center', width: '100%',display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
       <div> <img src={Logo} style={{width: '45px', margin: '0px'}} /></div> 
       <h3 style={{marginTop: '3px'}}>Get Started Today</h3> 
       <p style={{marginTop: '-5px'}}>See how Seedley can enhance your business</p></div>

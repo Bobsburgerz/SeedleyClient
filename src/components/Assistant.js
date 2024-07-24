@@ -356,7 +356,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 </div>*/}
  </> :  isOpt == "Functions" ? <>  
  <div style={{width: '50%'}} >
-{isOn && <>
+{isOn == "transfer" ? <>
  
               <div style={{ zIndex: '9999999999999999' }} className="modal">
                 <div
@@ -419,23 +419,78 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
                   </button>
                 </div>
            </div> 
-</>}
-<div  className="func-item-parent">
+</>  : isOn == "textMessagen" ?  <>  
+<div style={{ zIndex: '9999999999999999' }} className="modal">
+                <div
+                  style={{
+                    width: '550px',
+                    color: 'black',
+                    padding: '15px',
+                    justifyContent: 'center',
+                  }}
+                  className="modal-content"
+                >
+                  <div style={{ display: 'flex', justifyContent: 'end' }}>
+                    <div onClick={() => saveChanges()} className="closer-btn-3">
+                      X
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      columnGap: '15px',
+                      marginTop: '-8px',
+                      marginBottom: '5px',
+                    }}
+                  >
+                    <h3>Send a text</h3>
+                  </div>
+
+                  <label>When to send</label>
+                 <input/>
+
+                 <label>Text message body</label>
+                 <textarea/>
+                  <button className="standardBtn" onClick={addContact}>
+                   Save
+                  </button>
+                </div>
+           </div> 
+
+
+</>   :<></>}
+
+<div style={{display:'flex', flexDirection: 'column' , gap: '5px'}}> 
+<div style={{marginBottom: '15px'}} className="func-item-parent">
 
 <div className="func-item" style={{opacity: selected?.functions?.transfer ? '1' : '.5'}}>
 <div>
 <p>
   Call transfers
 </p>
-<button disabled={!selected?.functions?.transfer} className="standardBtn"  onClick={() => setIsOn(true)}>Add contacts to transfer</button>
+<button disabled={!selected?.functions?.transfer} className="standardBtn"  onClick={() => setIsOn("transfer")}>Add contacts to transfer</button>
 </div>
 <Toggle isOn={selected} setIsOn={setSelected} type={"transfer"}/>
 </div>
 </div>
-
-<button>
-</button>
+ 
 </div>
+ 
+<div style={{display: 'none'}}  className="func-item-parent">
+
+<div style={{opacity: selected?.functions?.textMessage ? '1' : '.5'}} className="func-item">
+<div>
+<p>
+  Text message
+</p>
+<button  className="standardBtn"  onClick={() => setIsOn("textMessage")}>Edit Settings</button>
+</div>
+<Toggle isOn={selected} setIsOn={setSelected} type={"textMessage"}/>
+</div>
+</div>
+</div>
+ 
 </> : <>  {isOpt == "KnowledgeBase" && <div  className="func-item-parent"> 
 
 
