@@ -58,6 +58,7 @@ const [isOpen, setIsOpen] = useState(false);
   const [knowledgeBase, setKnowledgeBase] = useState(assistants[0]?.knowledgeBase ? assistants[0]?.knowledgeBase :[]);
   const [isOn, setIsOn] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [textMessage, setTextMessage] = useState(assistants[0]?.textMessage)
   const [assistModal, setAssistModal] = useState(false)
  
 
@@ -188,7 +189,13 @@ const removeKnowledgeBase = (index) => {
       )
     );
   };
-
+  const saveText = () => {
+    setSelected((prev) => ({
+      ...prev,
+      textMessage: textMessage
+    }));
+    setIsOn(false)
+  };
   const addContact = () => {
     setSelected((prev) => ({
       ...prev,
@@ -446,14 +453,10 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
                   >
                     <h3>Send a text</h3>
                   </div>
-
-                  <label>When to send</label>
-                 <input/>
-
                  <label>Text message body</label>
-                 <textarea style={{width: '95%', resize:'none'}}/>
+                 <textarea value={textMessage} onChange={(e) => setTextMessage(e.target.value)}style={{width: '95%', resize:'none'}}/>
                  <br/>
-                  <button className="standardBtn" onClick={addContact}>
+                  <button className="standardBtn" onClick={saveText}>
                    Save
                   </button>
                 </div>
