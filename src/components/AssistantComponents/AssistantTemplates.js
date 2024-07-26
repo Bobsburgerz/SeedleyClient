@@ -7,8 +7,6 @@ const AssistantTemplates = ({onClose}) => {
   const addAssistant = async (data) => {
 
     try {
-
- 
     addAssis(data);
  onClose()
     } catch (error) {

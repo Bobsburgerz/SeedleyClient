@@ -327,7 +327,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 <label>Provider</label>
   <select style={{background: '#fbfbfb'}} ><option>Open AI </option> </select>
   <label style={{marginTop:'8px'}}>Model</label>
-  <select style={{background: '#fbfbfb'}} ><option>GPT 4o </option> </select>
+  <select style={{background: '#fbfbfb'}} ><option>gpt-4o</option><option>gpt-4o-mini</option>  </select>
  
 </div>
 </> :  isOpt == "Voice" ? <>
@@ -419,11 +419,11 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
                   </button>
                 </div>
            </div> 
-</>  : isOn == "textMessagen" ?  <>  
+</>  : isOn == "textMessage" ?  <>  
 <div style={{ zIndex: '9999999999999999' }} className="modal">
                 <div
                   style={{
-                    width: '550px',
+                    width: '400px',
                     color: 'black',
                     padding: '15px',
                     justifyContent: 'center',
@@ -451,7 +451,8 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
                  <input/>
 
                  <label>Text message body</label>
-                 <textarea/>
+                 <textarea style={{width: '95%', resize:'none'}}/>
+                 <br/>
                   <button className="standardBtn" onClick={addContact}>
                    Save
                   </button>
@@ -462,6 +463,8 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 </>   :<></>}
 
 <div style={{display:'flex', flexDirection: 'column' , gap: '5px'}}> 
+
+<h3>Built in functions</h3>
 <div style={{marginBottom: '15px'}} className="func-item-parent">
 
 <div className="func-item" style={{opacity: selected?.functions?.transfer ? '1' : '.5'}}>
@@ -477,7 +480,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
  
 </div>
  
-<div style={{display: 'none'}}  className="func-item-parent">
+<div  className="func-item-parent">
 
 <div style={{opacity: selected?.functions?.textMessage ? '1' : '.5'}} className="func-item">
 <div>
@@ -490,6 +493,23 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 </div>
 </div>
 </div>
+<div style={{display:'flex', flexDirection:'column', gap:'5px'}}> 
+<h3>Integrations</h3>
+<div style={{minWidth:'250px'}} className="func-item-parent">
+
+<div style={{opacity: selected?.functions?.gCal ? '1' : '.5'}} className="func-item">
+<div>
+
+ <img style={{width:'45px', height:'45px', marginTop: '10px'}}src="https://res.cloudinary.com/dre1imks8/image/upload/v1721977786/Google_Calendar_icon__2020_.svg_livsb8.png"/>
+<p style={{margin: '3px'}}>
+ Google Calendar
+</p> 
+</div>
+<Toggle isOn={selected} setIsOn={setSelected} type={"gCal"}/>
+</div>
+</div></div>
+ 
+ 
  
 </> : <>  {isOpt == "KnowledgeBase" && <div  className="func-item-parent"> 
 

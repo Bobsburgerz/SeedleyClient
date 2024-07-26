@@ -38,7 +38,7 @@ const Calls = () => {
           style={{
             color: isUser ? 'white' : 'black',
             width: 'fit-content',
-            display: 'flex',
+            display: message.content.length > 0 ?'flex' : 'none',
             margin: '10px',
             fontSize: '15px',
             textAlign: 'start',
@@ -53,7 +53,7 @@ const Calls = () => {
               </div>
             )}
             <div style={{ padding: '10px', borderRadius: '5px', backgroundColor: backgroundColor, alignSelf: textAlign }}>
-              {message.content}
+              {message.content}   
             </div>
           </div>
         </div>
