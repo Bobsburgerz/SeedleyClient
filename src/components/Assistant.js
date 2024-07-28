@@ -21,7 +21,7 @@ const [isOpen, setIsOpen] = useState(false);
   const [func, setFunc] = useState("")
   const [isOpt,  setIsOpt] = useState("Model");
   const [filteredData, setFilteredData] = useState([]);
-
+    
   useEffect(() => {
     const options = {
       method: 'GET',
@@ -247,6 +247,7 @@ const addAssistant = async () => {
   return (
     <div className="flex-cont-1">{assistModal && <><AssistModal onClose={() =>  setAssistModal(false)} 
     addAssistant={() => addAssistant()} /></>}
+
       <div style={{display:'flex', flex: '.83', flexDirection:'column', rowGap: '8px'}}>
       <div style={{cursor:'pointer', background: '#f2f2f2', padding: '10px'}} className="btn-new" 
       onClick={() => openAssistModal()}>+ Add an Assistant</div>
@@ -347,20 +348,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
   <option value="perseus">Clark</option>
   <option value="luna">Mandy</option>
   <option value="zeus">Kevin</option>
-  {/*filteredData?.map((opt) => <option value={opt.voice_id}>{opt.name}</option>)*/}
 </select></div>
-
-{/* 
-<div style={{width: '100%'}}>
-
-<label> Language </label>
-<select value={selected?.language} onChange={(e) => setSelected((prev) =>({ ...prev, language: e.target.value}))}   style={{background: '#fbfbfb'}}  className="voice-select" >
-  <option value="en-US">English</option> 
-  <option value="es">Spanish</option> 
-   
-</select>
- 
-</div>*/}
  </> :  isOpt == "Functions" ? <>  
  <div style={{width: '50%'}} >
 {isOn == "transfer" ? <>
@@ -463,7 +451,55 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
            </div> 
 
 
-</>   :<></>}
+</>   : isOn == "gCal" ? <> <div style={{ zIndex: '9999999999999999' }} className="modal">
+                <div
+                  style={{
+                    width: '400px',
+                    color: 'black',
+                    padding: '15px',
+                    justifyContent: 'center',
+                  }}
+                  className="modal-content"
+                >
+                  <div style={{ display: 'flex', justifyContent: 'end' }}>
+                    <div onClick={() => saveChanges()} className="closer-btn-3">
+                      X
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      columnGap: '15px',
+                      marginTop: '-8px',
+                      marginBottom: '5px',
+                    }}
+                  >
+                    <h3>Google Calendar</h3>
+                  </div>
+
+                  <label>Title</label>
+                 <input value={selected.gCal.g_title} onChange={(e) => setSelected(e.target.value)}  style={{width: '95%', resize:'none'}}/>
+                 <label>Description</label>
+                 <input value={selected.gCal.g_description} onChange={(e) => setSelected(e.target.value)} style={{width: '95%', resize:'none'}}/>
+                
+                 <label>Invites</label>
+                 <input value={selected.gCal.g_invites} onChange={(e) => setSelected(e.target.value)}  style={{width: '95%', resize:'none'}}/>
+              
+                 <label>Meeting duration</label>
+          <select style={{padding:'5px'}}><option>15 min</option>
+          <option>30 min</option> 
+          <option>45 min</option>
+          <option>1 hr</option>
+          </select>
+                 
+                 <br/>
+                  <button style={{marginTop:'15px'}} className="standardBtn" onClick={saveText}>
+                   Save
+                  </button>
+                </div>
+           </div> 
+</>  : <> </>}
 
 <div style={{display:'flex', flexDirection: 'column' , gap: '5px'}}> 
 
@@ -498,15 +534,16 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 </div>
 <div style={{display:'flex', flexDirection:'column', gap:'5px'}}> 
 <h3>Integrations</h3>
-<div style={{minWidth:'250px'}} className="func-item-parent">
+<div style={{minWidth:'275px', marginTop: '-4px'}} className="func-item-parent">
 
 <div style={{opacity: selected?.functions?.gCal ? '1' : '.5'}} className="func-item">
 <div>
-
- <img style={{width:'45px', height:'45px', marginTop: '10px'}}src="https://res.cloudinary.com/dre1imks8/image/upload/v1721977786/Google_Calendar_icon__2020_.svg_livsb8.png"/>
-<p style={{margin: '3px'}}>
+  <div style={{display:'flex', alignItems: 'center', margin: '10px 3px' , columnGap: '8px'}}> 
+<p style={{margin: '0px'}}>
  Google Calendar
 </p> 
+ <img style={{width:'32px', height:'32px', marginTop: '0px'}}src="https://res.cloudinary.com/dre1imks8/image/upload/v1721977786/Google_Calendar_icon__2020_.svg_livsb8.png"/></div>
+ <button  className="standardBtn"  onClick={() => setIsOn("gCal")}>Edit Settings</button>
 </div>
 <Toggle isOn={selected} setIsOn={setSelected} type={"gCal"}/>
 </div>
@@ -519,9 +556,9 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 
 <p style={{marginBottom:'10px', paddingBottom:'5px'}}>Upload a document to reference</p>
       <UploadDoc
-                addKnowledgeBase={addKnowledgeBase}
+              addKnowledgeBase={addKnowledgeBase}
               knowledgeBase={knowledgeBase}
-                removeKnowledgeBase={removeKnowledgeBase}
+              removeKnowledgeBase={removeKnowledgeBase}
             />
  
 </div> }
