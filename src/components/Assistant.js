@@ -6,7 +6,6 @@ import { useAddAssistantMutation } from "../services/appApi";
 import { updateAssistants } from '../features/assistantSlice';
 import AssistModal from './AssistantComponents/Modals/AssistantModal';
 import Stream from "./StreamAudio";
-import Upload from './AssistantComponents/UploadLeads';
 import Toggle from './AssistantComponents/Toggle';
 import UploadDoc from './AssistantComponents/UploadDocument';
 import Modal from './AssistantComponents/Modals/DeleteAssistant';  
@@ -17,8 +16,15 @@ const dispatch = useDispatch()
 const [isOpen, setIsOpen] = useState(false);
   const assistantsArray = useSelector((state) => state.assistants);
   const user = useSelector((state) => state.user);
+  const [currentInvite, setCurrentInvite] = useState("");
   const [addAssis] = useAddAssistantMutation();
-  const [func, setFunc] = useState("")
+  const [gCal, setgCal] = useState({
+    g_description: "",
+    g_invites: [""],
+    g_title: "",
+    g_duration: ""
+  })
+
   const [isOpt,  setIsOpt] = useState("Model");
   const [filteredData, setFilteredData] = useState([]);
     
@@ -76,6 +82,7 @@ const [isOpen, setIsOpen] = useState(false);
       setFirstMsg(assistants[0]?.firstMessage)
       setContacts(assistants[0]?.contacts ? assistants[0]?.contacts : [])
       setKnowledgeBase(assistants[0]?.knowledgeBase || []);
+      setgCal(assistants[0]?.gCal)
     }
   }, [assistants.length]);
 
@@ -134,19 +141,46 @@ const [isOpen, setIsOpen] = useState(false);
     };
 }, [selected, assistantsArray, dispatch]);
 
+const handleGCalChange = (field, value) => {
+  setSelected((prevSelected) => ({
+    ...prevSelected,
+    gCal: {
+      ...prevSelected.gCal,
+      [field]: value
+    }
+  }));
+};
+
+const handleAddInvite = () => {
+  if (currentInvite && currentInvite.trim() !== "") {
+    setSelected((prevSelected) => ({
+      ...prevSelected,
+      gCal: {
+        ...prevSelected.gCal,
+        g_invites: [...prevSelected.gCal.g_invites, currentInvite]
+      }
+    }));
+    setCurrentInvite("");
+  }
+};
+
+const handleInviteChange = (e) => {
+  setCurrentInvite(e.target.value);
+};
+
 const onSelect = (assistant) => {
     setSelected(assistant);
     setPrompt(assistant?.prompt);
     setFirstMsg(assistant?.firstMessage);
     setContacts(assistant?.contacts);
     setKnowledgeBase(assistant?.knowledgeBase);
+    setgCal(assistant?.gCal)
     setIsOpt("Model")
 };
 
 const addKnowledgeBase = (doc, name) => {
   setSelected((prev) => {
       const updatedKnowledgeBase =  prev?.knowledgeBase?.length > 0 ?[... prev?.knowledgeBase, {url:doc, name:name}] : [{url:doc, name:name}];
- 
       return {
           ...prev,
           knowledgeBase: updatedKnowledgeBase,
@@ -263,7 +297,7 @@ const addAssistant = async () => {
       </div>
 
 
-      <div style={{flex:'2.6', width: '68%'}}>
+<div style={{flex:'2.6', width: '68%'}}>
 <div style={{display:'flex', alignItems: 'center',
 padding: '0px 16px',justifyContent: 'space-between'}} className={selected ? "title-box" : ""}>
 <div style={{display:'flex', flexDirection: 'column'}}>
@@ -477,22 +511,37 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
                   >
                     <h3>Google Calendar</h3>
                   </div>
-
                   <label>Title</label>
-                 <input value={selected.gCal.g_title} onChange={(e) => setSelected(e.target.value)}  style={{width: '95%', resize:'none'}}/>
-                 <label>Description</label>
-                 <input value={selected.gCal.g_description} onChange={(e) => setSelected(e.target.value)} style={{width: '95%', resize:'none'}}/>
-                
-                 <label>Invites</label>
-                 <input value={selected.gCal.g_invites} onChange={(e) => setSelected(e.target.value)}  style={{width: '95%', resize:'none'}}/>
-              
+    <input
+      value={selected.gCal.g_title}
+      onChange={(e) => handleGCalChange('g_title', e.target.value)}
+      style={{ width: '95%', resize: 'none' }}
+    />
+    <label>Description</label>
+    <input
+      value={selected.gCal.g_description}
+      onChange={(e) => handleGCalChange('g_description', e.target.value)}
+      style={{ width: '95%', resize: 'none' }}
+    />
+    <label>Invites</label>
+    <input
+      value={currentInvite}
+      onChange={handleInviteChange}
+      style={{ width: '80%', resize: 'none' }}
+    />
+    <button  className="standardBtn" onClick={handleAddInvite}>Add Person</button>
+    <ul>
+      {selected.gCal.g_invites.map((invite, index) => (
+        <li key={index}>{invite}</li>
+      ))}
+    </ul>
                  <label>Meeting duration</label>
-          <select style={{padding:'5px'}}><option>15 min</option>
-          <option>30 min</option> 
-          <option>45 min</option>
-          <option>1 hr</option>
-          </select>
-                 
+    <select value={selected.gCal.g_duration} onChange={(e) => handleGCalChange('.g_duration', e.target.value)} style={{ padding: '5px' }}>
+      <option value="15 min">15 min</option>
+      <option value="30 min">30 min</option>
+      <option value="45 min">45 min</option>
+      <option value="1 hr">1 hr</option>
+    </select>
                  <br/>
                   <button style={{marginTop:'15px'}} className="standardBtn" onClick={saveText}>
                    Save
@@ -563,13 +612,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
  
 </div> }
 
-
-{isOpt == "Lists" && <div> 
-
-<p style={{marginBottom:'10px', paddingBottom:'5px', }}>Upload a list of contacts to call</p>
-<Upload/>
  
-</div> }
 
 </> }
   </div>
