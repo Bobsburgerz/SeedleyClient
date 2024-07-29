@@ -6,7 +6,6 @@ import { useAddAssistantMutation } from "../services/appApi";
 import { updateAssistants } from '../features/assistantSlice';
 import AssistModal from './AssistantComponents/Modals/AssistantModal';
 import Stream from "./StreamAudio";
-import Upload from './AssistantComponents/UploadLeads';
 import Toggle from './AssistantComponents/Toggle';
 import UploadDoc from './AssistantComponents/UploadDocument';
 import Modal from './AssistantComponents/Modals/DeleteAssistant';  
@@ -17,11 +16,18 @@ const dispatch = useDispatch()
 const [isOpen, setIsOpen] = useState(false);
   const assistantsArray = useSelector((state) => state.assistants);
   const user = useSelector((state) => state.user);
+  const [currentInvite, setCurrentInvite] = useState("");
   const [addAssis] = useAddAssistantMutation();
-  const [func, setFunc] = useState("")
+  const [gCal, setgCal] = useState({
+    g_description: "",
+    g_invites: [""],
+    g_title: "",
+    g_duration: ""
+  })
+
   const [isOpt,  setIsOpt] = useState("Model");
   const [filteredData, setFilteredData] = useState([]);
-
+    
   useEffect(() => {
     const options = {
       method: 'GET',
@@ -76,6 +82,7 @@ const [isOpen, setIsOpen] = useState(false);
       setFirstMsg(assistants[0]?.firstMessage)
       setContacts(assistants[0]?.contacts ? assistants[0]?.contacts : [])
       setKnowledgeBase(assistants[0]?.knowledgeBase || []);
+      setgCal(assistants[0]?.gCal)
     }
   }, [assistants.length]);
 
@@ -134,19 +141,46 @@ const [isOpen, setIsOpen] = useState(false);
     };
 }, [selected, assistantsArray, dispatch]);
 
+const handleGCalChange = (field, value) => {
+  setSelected((prevSelected) => ({
+    ...prevSelected,
+    gCal: {
+      ...prevSelected.gCal,
+      [field]: value
+    }
+  }));
+};
+
+const handleAddInvite = () => {
+  if (currentInvite && currentInvite.trim() !== "") {
+    setSelected((prevSelected) => ({
+      ...prevSelected,
+      gCal: {
+        ...prevSelected.gCal,
+        g_invites: [...prevSelected.gCal.g_invites, currentInvite]
+      }
+    }));
+    setCurrentInvite("");
+  }
+};
+
+const handleInviteChange = (e) => {
+  setCurrentInvite(e.target.value);
+};
+
 const onSelect = (assistant) => {
     setSelected(assistant);
     setPrompt(assistant?.prompt);
     setFirstMsg(assistant?.firstMessage);
     setContacts(assistant?.contacts);
     setKnowledgeBase(assistant?.knowledgeBase);
+    setgCal(assistant?.gCal)
     setIsOpt("Model")
 };
 
 const addKnowledgeBase = (doc, name) => {
   setSelected((prev) => {
       const updatedKnowledgeBase =  prev?.knowledgeBase?.length > 0 ?[... prev?.knowledgeBase, {url:doc, name:name}] : [{url:doc, name:name}];
- 
       return {
           ...prev,
           knowledgeBase: updatedKnowledgeBase,
@@ -247,6 +281,7 @@ const addAssistant = async () => {
   return (
     <div className="flex-cont-1">{assistModal && <><AssistModal onClose={() =>  setAssistModal(false)} 
     addAssistant={() => addAssistant()} /></>}
+
       <div style={{display:'flex', flex: '.83', flexDirection:'column', rowGap: '8px'}}>
       <div style={{cursor:'pointer', background: '#f2f2f2', padding: '10px'}} className="btn-new" 
       onClick={() => openAssistModal()}>+ Add an Assistant</div>
@@ -262,7 +297,7 @@ const addAssistant = async () => {
       </div>
 
 
-      <div style={{flex:'2.6', width: '68%'}}>
+<div style={{flex:'2.6', width: '68%'}}>
 <div style={{display:'flex', alignItems: 'center',
 padding: '0px 16px',justifyContent: 'space-between'}} className={selected ? "title-box" : ""}>
 <div style={{display:'flex', flexDirection: 'column'}}>
@@ -347,20 +382,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
   <option value="perseus">Clark</option>
   <option value="luna">Mandy</option>
   <option value="zeus">Kevin</option>
-  {/*filteredData?.map((opt) => <option value={opt.voice_id}>{opt.name}</option>)*/}
 </select></div>
-
-{/* 
-<div style={{width: '100%'}}>
-
-<label> Language </label>
-<select value={selected?.language} onChange={(e) => setSelected((prev) =>({ ...prev, language: e.target.value}))}   style={{background: '#fbfbfb'}}  className="voice-select" >
-  <option value="en-US">English</option> 
-  <option value="es">Spanish</option> 
-   
-</select>
- 
-</div>*/}
  </> :  isOpt == "Functions" ? <>  
  <div style={{width: '50%'}} >
 {isOn == "transfer" ? <>
@@ -463,7 +485,70 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
            </div> 
 
 
-</>   :<></>}
+</>   : isOn == "gCal" ? <> <div style={{ zIndex: '9999999999999999' }} className="modal">
+                <div
+                  style={{
+                    width: '400px',
+                    color: 'black',
+                    padding: '15px',
+                    justifyContent: 'center',
+                  }}
+                  className="modal-content"
+                >
+                  <div style={{ display: 'flex', justifyContent: 'end' }}>
+                    <div onClick={() => saveChanges()} className="closer-btn-3">
+                      X
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      columnGap: '15px',
+                      marginTop: '-8px',
+                      marginBottom: '5px',
+                    }}
+                  >
+                    <h3>Google Calendar</h3>
+                  </div>
+                  <label>Title</label>
+    <input
+      value={selected.gCal.g_title}
+      onChange={(e) => handleGCalChange('g_title', e.target.value)}
+      style={{ width: '95%', resize: 'none' }}
+    />
+    <label>Description</label>
+    <input
+      value={selected.gCal.g_description}
+      onChange={(e) => handleGCalChange('g_description', e.target.value)}
+      style={{ width: '95%', resize: 'none' }}
+    />
+    <label>Invites</label>
+    <input
+      value={currentInvite}
+      onChange={handleInviteChange}
+      style={{ width: '80%', resize: 'none' }}
+    />
+    <button  className="standardBtn" onClick={handleAddInvite}>Add Person</button>
+    <ul>
+      {selected.gCal.g_invites.map((invite, index) => (
+        <li key={index}>{invite}</li>
+      ))}
+    </ul>
+                 <label>Meeting duration</label>
+    <select value={selected.gCal.g_duration} onChange={(e) => handleGCalChange('.g_duration', e.target.value)} style={{ padding: '5px' }}>
+      <option value="15 min">15 min</option>
+      <option value="30 min">30 min</option>
+      <option value="45 min">45 min</option>
+      <option value="1 hr">1 hr</option>
+    </select>
+                 <br/>
+                  <button style={{marginTop:'15px'}} className="standardBtn" onClick={saveText}>
+                   Save
+                  </button>
+                </div>
+           </div> 
+</>  : <> </>}
 
 <div style={{display:'flex', flexDirection: 'column' , gap: '5px'}}> 
 
@@ -498,15 +583,16 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 </div>
 <div style={{display:'flex', flexDirection:'column', gap:'5px'}}> 
 <h3>Integrations</h3>
-<div style={{minWidth:'250px'}} className="func-item-parent">
+<div style={{minWidth:'275px', marginTop: '-4px'}} className="func-item-parent">
 
 <div style={{opacity: selected?.functions?.gCal ? '1' : '.5'}} className="func-item">
 <div>
-
- <img style={{width:'45px', height:'45px', marginTop: '10px'}}src="https://res.cloudinary.com/dre1imks8/image/upload/v1721977786/Google_Calendar_icon__2020_.svg_livsb8.png"/>
-<p style={{margin: '3px'}}>
+  <div style={{display:'flex', alignItems: 'center', margin: '10px 3px' , columnGap: '8px'}}> 
+<p style={{margin: '0px'}}>
  Google Calendar
 </p> 
+ <img style={{width:'32px', height:'32px', marginTop: '0px'}}src="https://res.cloudinary.com/dre1imks8/image/upload/v1721977786/Google_Calendar_icon__2020_.svg_livsb8.png"/></div>
+ <button  className="standardBtn"  onClick={() => setIsOn("gCal")}>Edit Settings</button>
 </div>
 <Toggle isOn={selected} setIsOn={setSelected} type={"gCal"}/>
 </div>
@@ -519,20 +605,14 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 
 <p style={{marginBottom:'10px', paddingBottom:'5px'}}>Upload a document to reference</p>
       <UploadDoc
-                addKnowledgeBase={addKnowledgeBase}
+              addKnowledgeBase={addKnowledgeBase}
               knowledgeBase={knowledgeBase}
-                removeKnowledgeBase={removeKnowledgeBase}
+              removeKnowledgeBase={removeKnowledgeBase}
             />
  
 </div> }
 
-
-{isOpt == "Lists" && <div> 
-
-<p style={{marginBottom:'10px', paddingBottom:'5px', }}>Upload a list of contacts to call</p>
-<Upload/>
  
-</div> }
 
 </> }
   </div>
