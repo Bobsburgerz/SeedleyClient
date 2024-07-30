@@ -7,23 +7,27 @@ import Calls from "./Calls";
 import Billing from "./Billing";
 import PhoneNum from "./PhoneNum";
 import {resetProducts} from "../features/productSlice"
-import Enviroment from "./Enviroment"
 import useLogout from "../hooks/useLogout";
-import { logout, resetNotifications } from "../features/userSlice";
+import { logout } from "../features/userSlice";
+
 import { updateAssistants } from '../features/assistantSlice';
 import { updatePhoneNum } from '../features/phoneNumSlice';
 import { useLocation } from 'react-router-dom';
 import { updateCalls } from '../features/callSlice';
 import Modal from "./ModalComponents/PlanPayment"
 import "./styles/Home.css"
+import { useUpdateUserMutation } from "../services/appApi";
  
 
  
 
 
 const Dashboard = () => {
-  const loading = useSelector((state) => state.loading);
+ 
+ 
 
+
+  const loading = useSelector((state) => state.loading);
   const logouts = useLogout();
   const handleLogout =  () => {
     dispatch(resetProducts());

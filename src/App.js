@@ -22,7 +22,7 @@ import ReactGA from 'react-ga4';
 ReactGA.initialize('G-FT1VZ92J07');
 ReactGA.send({ 
   hitType: "pageview", 
-  page: "/", 
+  page: "/",  
   title: "Home"})
 
 
