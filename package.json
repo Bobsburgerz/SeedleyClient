@@ -50,8 +50,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "CI=false && react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --config jest.config.js",
     "eject": "react-scripts eject"
+  },
+  "jest": {
+    "preset": "react-app"
   },
   "eslintConfig": {
     "extends": [
@@ -80,10 +83,13 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
+    "axios-mock-adapter": "^1.22.0",
     "babel-loader": "^8.3.0",
     "css-loader": "^6.8.1",
     "html-webpack-plugin": "^5.5.3",
     "jest": "^27.5.1",
+    "jest-fetch-mock": "^3.0.3",
+    "redux-mock-store": "^1.5.4",
     "rollup": "^2.79.1",
     "style-loader": "^3.3.3",
     "webpack": "^5.89.0",

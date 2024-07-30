@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector , useDispatch} from "react-redux";
-const ToggleButton = ({isOn, setIsOn , type}) => {
+const ToggleButton = ({isOn, setIsOn ,aiid,  type}) => {
   const user = useSelector((state) => state.user);
   const handleToggle = () => {
 
@@ -39,7 +39,7 @@ else if (type == "gCal") {
 
 )}
 else {
-  window.location.href = `https://pizzaserver.onrender.com/gauth?userId=${user._id}`;
+  window.location.href = `https://pizzaserver.onrender.com/gauth?aiid=${aiid}`;
 }
 
 

@@ -9,25 +9,54 @@ import Stream from "./StreamAudio";
 import Toggle from './AssistantComponents/Toggle';
 import UploadDoc from './AssistantComponents/UploadDocument';
 import Modal from './AssistantComponents/Modals/DeleteAssistant';  
-
+import { useUpdateUserMutation } from "../services/appApi";
+import { useLocation } from 'react-router-dom';
  
 const Assistant = () => {
 const dispatch = useDispatch()
+const [updateUser, { isError, isLoading, error }] = useUpdateUserMutation();
 const [isOpen, setIsOpen] = useState(false);
-  const assistantsArray = useSelector((state) => state.assistants);
-  const user = useSelector((state) => state.user);
-  const [currentInvite, setCurrentInvite] = useState("");
-  const [addAssis] = useAddAssistantMutation();
-  const [gCal, setgCal] = useState({
+const assistantsArray = useSelector((state) => state.assistants);
+const user = useSelector((state) => state.user);
+const [currentInvite, setCurrentInvite] = useState("");
+const [addAssis] = useAddAssistantMutation();
+const [gCal, setgCal] = useState({
     g_description: "",
     g_invites: [""],
     g_title: "",
     g_duration: ""
   })
 
-  const [isOpt,  setIsOpt] = useState("Model");
-  const [filteredData, setFilteredData] = useState([]);
+const [isOpt,  setIsOpt] = useState("Model");
+const [filteredData, setFilteredData] = useState([]);
+const [gauth, setGauth] = useState(false);
+const [id, setId] = useState(null);
+const getQueryParams = (search) => {
+    return new URLSearchParams(search);
+  };
+const location = useLocation();
+
+useEffect(() => {
+    const queryParams = getQueryParams(location.search);
+    const gauthValue = queryParams.get('gauth') === 'true';
+    const idValue = queryParams.get('id');
+    setGauth(gauthValue);
+    setId(idValue);
+    setSelected(assistantsArray.find((assistant) => assistant?._id == idValue))
     
+  }, [location.search]);
+
+  useEffect(() => {
+    if (gauth) {
+     const getUserAuth = async () => {
+     const res =  await axios.get(`/user/get-authToken?${user._id}`)
+      await updateUser({ id: user._id, g_access: res.data.g_access, g_refresh: res.data.g_refresh });      
+     }
+     getUserAuth()
+    }
+  }, [gauth, id]);
+
+
   useEffect(() => {
     const options = {
       method: 'GET',
@@ -562,7 +591,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 </p>
 <button disabled={!selected?.functions?.transfer} className="standardBtn"  onClick={() => setIsOn("transfer")}>Add contacts to transfer</button>
 </div>
-<Toggle isOn={selected} setIsOn={setSelected} type={"transfer"}/>
+<Toggle isOn={selected} setIsOn={setSelected} aiid={selected?._id} type={"transfer"}/>
 </div>
 </div>
  
@@ -577,7 +606,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 </p>
 <button  className="standardBtn"  onClick={() => setIsOn("textMessage")}>Edit Settings</button>
 </div>
-<Toggle isOn={selected} setIsOn={setSelected} type={"textMessage"}/>
+<Toggle isOn={selected} setIsOn={setSelected} aiid={selected?._id} type={"textMessage"}/>
 </div>
 </div>
 </div>
@@ -594,7 +623,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
  <img style={{width:'32px', height:'32px', marginTop: '0px'}}src="https://res.cloudinary.com/dre1imks8/image/upload/v1721977786/Google_Calendar_icon__2020_.svg_livsb8.png"/></div>
  <button  className="standardBtn"  onClick={() => setIsOn("gCal")}>Edit Settings</button>
 </div>
-<Toggle isOn={selected} setIsOn={setSelected} type={"gCal"}/>
+<Toggle isOn={selected} setIsOn={setSelected} aiid={selected?._id} type={"gCal"}/>
 </div>
 </div></div>
  
