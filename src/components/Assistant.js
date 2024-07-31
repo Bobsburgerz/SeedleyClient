@@ -6,11 +6,12 @@ import { useAddAssistantMutation } from "../services/appApi";
 import { updateAssistants } from '../features/assistantSlice';
 import AssistModal from './AssistantComponents/Modals/AssistantModal';
 import Stream from "./StreamAudio";
+import { useNavigate } from 'react-router-dom';
 import Toggle from './AssistantComponents/Toggle';
 import UploadDoc from './AssistantComponents/UploadDocument';
 import Modal from './AssistantComponents/Modals/DeleteAssistant';  
 import { useUpdateUserMutation } from "../services/appApi";
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
  
 const Assistant = () => {
 const dispatch = useDispatch()
@@ -31,32 +32,11 @@ const [isOpt,  setIsOpt] = useState("Model");
 const [filteredData, setFilteredData] = useState([]);
 const [gauth, setGauth] = useState(false);
 const [id, setId] = useState(null);
+const navigate = useNavigate()
 const getQueryParams = (search) => {
     return new URLSearchParams(search);
   };
-const location = useLocation();
-
-useEffect(() => {
-    const queryParams = getQueryParams(location.search);
-    const gauthValue = queryParams.get('gauth') === 'true';
-    const idValue = queryParams.get('id');
-    setGauth(gauthValue);
-    setId(idValue);
-    setSelected(assistantsArray.find((assistant) => assistant?._id == idValue))
-    
-  }, [location.search]);
-
-  useEffect(() => {
-    if (gauth) {
-     const getUserAuth = async () => {
-     const res =  await axios.get(`/user/get-authToken?${user._id}`)
-      await updateUser({ id: user._id, g_access: res.data.g_access, g_refresh: res.data.g_refresh });      
-     }
-     getUserAuth()
-    }
-  }, [gauth, id]);
-
-
+const location = useLocation(); 
   useEffect(() => {
     const options = {
       method: 'GET',
@@ -96,6 +76,40 @@ useEffect(() => {
   const [textMessage, setTextMessage] = useState(assistants[0]?.textMessage)
   const [assistModal, setAssistModal] = useState(false)
  
+
+
+useEffect(() => {
+  const queryParams = new URLSearchParams(location.search);
+  const gauthValue = queryParams.get('gauth') === 'true';
+  const idValue = queryParams.get('id');
+  setGauth(gauthValue);
+  setId(idValue);
+  setSelected(assistantsArray.find((assistant) => assistant?._id === idValue));
+}, [location.search, assistantsArray]);
+
+ useEffect(() => {
+    const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    if (gauth) {
+      const getUserAuth = async () => {
+        try {
+          // Wait for 3 seconds
+          await wait(3000);
+
+          const res = await axios.get(`/user?id=${user._id}`);
+          await updateUser({ id: user._id, g_access: res.data.g_access, g_refresh: res.data.g_refresh });
+          navigate('/dashboard');
+          setIsOpt("Functions");
+          setSuccess(true);
+        } catch (error) {
+          console.error('Error fetching user auth:', error);
+          // Handle error (e.g., show an error message)
+        }
+      };
+
+      getUserAuth();
+    }
+  }, [gauth, id, user._id, navigate]);
 
   const openAssistModal = () => {
     setAssistModal(true)
@@ -328,7 +342,7 @@ const addAssistant = async () => {
 
 <div style={{flex:'2.6', width: '68%'}}>
 <div style={{display:'flex', alignItems: 'center',
-padding: '0px 16px',justifyContent: 'space-between'}} className={selected ? "title-box" : ""}>
+padding: '0px 16px',justifyContent: 'space-between'}} className="title-box">
 <div style={{display:'flex', flexDirection: 'column'}}>
   <div style={{display:'flex'}}>
     <div>
