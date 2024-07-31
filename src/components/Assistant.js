@@ -108,24 +108,23 @@ useEffect(() => {
           const queryParams = new URLSearchParams(location.search);
           await wait(1200);
           const idValue = queryParams.get('id');
-          const assistant = assistantsArray.find((assistant) => assistant?._id === idValue)
-       
+          const assistant = assistantsArray.find((assistant) => assistant?._id == idValue)
+         
           const res = await axios.get(`/user?id=${user._id}`);
           await updateUser({ id: user._id, g_access: res.data.g_access, g_refresh: res.data.g_refresh });
           navigate('/dashboard');
           onSelect(assistant);
           setIsOpt("Functions");
           setSuccess(true);
-          setId(null);
         } catch (error) {
           console.error('Error fetching user auth:', error);
-          // Handle error (e.g., show an error message)
+      
         }
       };
 
       getUserAuth();
     }
-  }, [gauth, id]);
+  }, [gauth]);
 
   const openAssistModal = () => {
     setAssistModal(true)
