@@ -94,8 +94,8 @@ useEffect(() => {
   const idValue = queryParams.get('id');
   setGauth(gauthValue);
   setId(idValue);
-  const assistant = assistantsArray.find((assistant) => assistant?._id === idValue)
-  onSelect(assistant);
+ 
+ 
  
 }, [location.search]);
 
