@@ -269,25 +269,21 @@ console.log(outAssistant)
   const setInbound = async (event, number) => {
     try{
     await axios.post('/phone/configure-webhook', {aiid: event, twilNum: number, userId: user._id, lang: lang})
-   
-    }catch(
-      e
-    ) {
+    setSelected((prev) => ({
+      ...prev,
+      inbound: event
+    }))
+    }catch(e) {
       console.log("error", e.message)
     }
   };
  
 
   const singleCall = async (twilNum, SID, token) => {
-
     try {
-  
-  
     await axios.post('https://coldcall.onrender.com/outbound-live', { phone: num, twilNum, aiid: selectedAssistantId, userId: user._id, SID, token , lang: lang});
- 
     setDial(false)
     setDialSuccess(true)
-
     } catch(e) {
       console.log(e.message)
     }
@@ -415,9 +411,9 @@ style={{ borderRadius: '5px',background: '#fbfbfb', height: '31.1px', cursor: 'p
             <div style={{display:'flex', justifyContent:'space-between'}}><h2>Inbound</h2>        
                </div>  
               <p style={{margin: '3px'}}>Assign an assistant to receive incoming phone calls</p>
-              <select disabled={true} value={selected?.inbound} onChange={(e) => setInbound(e.target.value, selected.number)}style={{ padding: '8px', background: '#fbfbfb', width: '100%',borderRadius: '5px', marginBottom: '15px' }}>
+              <select  value={selected?.inbound} onChange={(e) => setInbound(e.target.value, selected.number)}style={{ padding: '8px', background: '#fbfbfb', width: '100%',borderRadius: '5px', marginBottom: '15px' }}>
                
-               <option value="none"> No assistant selected</option>
+              
                 {assistantsArray.map((assistant, index) => {
                   return <option key={index} value={assistant._id}>{assistant.name}</option>;
                 })}
