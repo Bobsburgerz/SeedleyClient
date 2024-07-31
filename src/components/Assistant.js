@@ -570,6 +570,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
     <input
       value={currentInvite}
       onChange={handleInviteChange}
+      placeholder='email'
       style={{ width: '80%', resize: 'none' }}
     />
     <button  className="standardBtn" onClick={handleAddInvite}>Add Person</button>
