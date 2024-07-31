@@ -155,7 +155,7 @@ useEffect(() => {
     }
   }, [assistants.length]);
 
-
+const [saving, setSaving] = useState(false)
 
   useEffect(() => {
    if (success) {
@@ -167,11 +167,15 @@ useEffect(() => {
    
   useEffect(() => {
     const prevAssis = assistantsArray.find((assistant) => assistant._id === selected?._id); 
+    if (prevAssis !== selected) { setSaving(true)}  
     const updateAssistantData = async () => {
       if (prevAssis !== selected) {
         try {
+           
           const res = await axios.post("https://pizzaserver.onrender.com/assistant/updateAssistant", selected);
+         
           dispatch(updateAssistants(res.data));
+          setSaving(false)
         } catch (error) {
       
         }
@@ -180,7 +184,7 @@ useEffect(() => {
   
     const interval = setInterval(() => {
       updateAssistantData();
-    }, 3000);  
+    }, 2500);  
   
     return () => {
       clearInterval(interval);  
@@ -390,14 +394,20 @@ padding: '0px 16px',justifyContent: 'space-between'}} className="title-box">
     <div onClick={() => setIsOpt("Voice")} style={{ backgroundColor : isOpt == "Voice" ? '#34a853' : '#fbfbfb' , color: isOpt == "Voice" ? '#fbfbfb' : 'black'}} className="opt-sel-mid-1"> Voice </div>
     <div onClick={() => setIsOpt("Functions")} style={{ backgroundColor : isOpt == "Functions" ? '#34a853' : '#fbfbfb' , color: isOpt == "Functions" ? '#fbfbfb' : 'black'}} className="opt-sel-mid-1"> Functions </div>
     {/*<div onClick={() => setIsOpt("Lists")} style={{ backgroundColor : isOpt == "Lists" ? '#34a853' : '#fbfbfb' , color: isOpt == "Lists" ? '#fbfbfb' : 'black'}} className="opt-sel-mid-1"> Lists</div>*/}
-  <div onClick={() => setIsOpt("KnowledgeBase")} style={{ backgroundColor : isOpt == "KnowledgeBase" ? '#34a853' : '#fbfbfb' , color: isOpt == "KnowledgeBase" ? '#fbfbfb' : 'black'}} className="opt-sel1"> Knowledge Base</div>
+  <div onClick={() => setIsOpt("KnowledgeBase")} style={{ backgroundColor : isOpt == "KnowledgeBase" ? 
+    '#34a853' : '#fbfbfb' , color: isOpt == "KnowledgeBase" ? '#fbfbfb' : 'black'}} className="opt-sel1"> 
+    Knowledge Base</div>
    
-   
+ 
    
     </div>
-
-<div style={{display: 'flex', columnGap: '10px'}}>
+    <div className="flex-row">
+      {saving ? <>    <h4>Saving ...</h4>
+        </> : <> <h4>Changes Saved</h4><img style={{width: '23px', height: '23px'}}src="https://res.cloudinary.com/dojwag3u1/image/upload/v1722467664/check_ddezaz.png"/></>}
  
+   
+ 
+   </div>
 
 {isOpen && <>
 
@@ -408,7 +418,7 @@ selected={selected} setSelected={() => setSelected(assistants[0])} />
 
 </>}
  
-   </div>
+ 
    
    </div> 
 <div style={{display:'flex', columnGap:'15px'}}>
