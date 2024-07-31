@@ -77,6 +77,16 @@ const location = useLocation();
   const [assistModal, setAssistModal] = useState(false)
  
 
+  const onSelect = (assistant) => {
+    setSelected(assistant);
+    setPrompt(assistant?.prompt);
+    setFirstMsg(assistant?.firstMessage);
+    setContacts(assistant?.contacts);
+    setKnowledgeBase(assistant?.knowledgeBase);
+    setgCal(assistant?.gCal)
+    setIsOpt("Model")
+};
+
 
 useEffect(() => {
   const queryParams = new URLSearchParams(location.search);
@@ -84,8 +94,10 @@ useEffect(() => {
   const idValue = queryParams.get('id');
   setGauth(gauthValue);
   setId(idValue);
-  setSelected(assistantsArray.find((assistant) => assistant?._id === idValue));
-}, [location.search, assistantsArray]);
+  const assistant = assistantsArray.find((assistant) => assistant?._id === idValue)
+  onSelect(assistant);
+  setgCal(assistant?.gCal)
+}, [location.search]);
 
  useEffect(() => {
     const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -93,14 +105,17 @@ useEffect(() => {
     if (gauth) {
       const getUserAuth = async () => {
         try {
-          // Wait for 3 seconds
-          await wait(3000);
-
+          const queryParams = new URLSearchParams(location.search);
+          await wait(1200);
+          const idValue = queryParams.get('id');
+          const assistant = assistantsArray.find((assistant) => assistant?._id === idValue)
+          onSelect(assistant);
           const res = await axios.get(`/user?id=${user._id}`);
           await updateUser({ id: user._id, g_access: res.data.g_access, g_refresh: res.data.g_refresh });
           navigate('/dashboard');
           setIsOpt("Functions");
           setSuccess(true);
+          setId(null);
         } catch (error) {
           console.error('Error fetching user auth:', error);
           // Handle error (e.g., show an error message)
@@ -109,23 +124,18 @@ useEffect(() => {
 
       getUserAuth();
     }
-  }, [gauth, id, user._id, navigate]);
+  }, [gauth, id]);
 
   const openAssistModal = () => {
     setAssistModal(true)
   }
-
+  
   useEffect(() => {
   
     if (assistants.length > 0) {
-      setSelected(
-        assistants[0]
-      )
-      setPrompt(assistants[0]?.prompt)
-      setFirstMsg(assistants[0]?.firstMessage)
-      setContacts(assistants[0]?.contacts ? assistants[0]?.contacts : [])
-      setKnowledgeBase(assistants[0]?.knowledgeBase || []);
-      setgCal(assistants[0]?.gCal)
+
+      onSelect(assistants[0])
+      
     }
   }, [assistants.length]);
 
@@ -210,17 +220,7 @@ const handleAddInvite = () => {
 const handleInviteChange = (e) => {
   setCurrentInvite(e.target.value);
 };
-
-const onSelect = (assistant) => {
-    setSelected(assistant);
-    setPrompt(assistant?.prompt);
-    setFirstMsg(assistant?.firstMessage);
-    setContacts(assistant?.contacts);
-    setKnowledgeBase(assistant?.knowledgeBase);
-    setgCal(assistant?.gCal)
-    setIsOpt("Model")
-};
-
+ 
 const addKnowledgeBase = (doc, name) => {
   setSelected((prev) => {
       const updatedKnowledgeBase =  prev?.knowledgeBase?.length > 0 ?[... prev?.knowledgeBase, {url:doc, name:name}] : [{url:doc, name:name}];
