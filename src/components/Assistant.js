@@ -99,20 +99,7 @@ useEffect(() => {
  
 }, [location.search]);
 
-useEffect(() => {
-  const queryParams = new URLSearchParams(location.search);
-  const gauthValue = queryParams.get('gCal') === 'true';
-
-  if (gauthValue) {
-  setIsOn((prevState) => ({ 
-    ...selected, 
-    functions: {
-      ...prevState.functions,
-      gCal: !prevState.functions.gCal,
-    },
-  }))}
-}, [location.search]);
-
+ 
 
  useEffect(() => {
     const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -123,14 +110,13 @@ useEffect(() => {
           const queryParams = new URLSearchParams(location.search);
           await wait(1200);
           const idValue = queryParams.get('id');
-          const assistant = assistantsArray.find((assistant) => assistant?._id == idValue)
-         
+        
           const res = await axios.get(`/user?id=${user._id}`);
           await updateUser({ id: user._id, g_access: res.data.g_access, g_refresh: res.data.g_refresh });
-          navigate('/dashboard?gCal=true');
-          onSelect(assistant);
+          
+          const assistant = assistantsArray.find((assistant) => assistant?._id == idValue)
+          onSelect(assistant);    
           setIsOpt("Functions");
-       
           setSuccess(true);
         } catch (error) {
           console.error('Error fetching user auth:', error);

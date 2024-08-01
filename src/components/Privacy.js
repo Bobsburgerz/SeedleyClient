@@ -149,7 +149,7 @@ const Privacy = ({ onClose }) => {
             <br />
             For questions or concerns about this Privacy Policy or our data practices, please contact us at:
             <ul>
-              <li><strong>Email:</strong> info@seedley.net</li>
+              <li><strong>Email:</strong>info@seedley.net</li>
             </ul>
           </p>
           <p>
@@ -157,7 +157,7 @@ const Privacy = ({ onClose }) => {
             <br />
             For additional information on data protection, you can contact our Data Protection Officer at:
             <ul>
-              <li><strong>Email:</strong> info@seedley.met</li>
+              <li><strong>Email:</strong>info@seedley.met</li>
              
             </ul>
           </p>
