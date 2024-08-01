@@ -1,5 +1,5 @@
 import React from 'react';
- 
+ import {Link} from 'react-router-dom'
 import styles from './styles/Footer.module.css';
 
 const Footer = () => {
@@ -15,9 +15,9 @@ const Footer = () => {
 
         <div className={styles.right}>
 
-          <a href="#" className={styles.socialIcon}>
-         
-          </a>
+          <Link to="/privacy" className={styles.socialIcon}>
+      Privacy Policy
+          </Link>
           <a href="#" className={styles.socialIcon}>
  
           </a>

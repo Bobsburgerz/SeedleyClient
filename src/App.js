@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useRef, useState } from 'react';
- 
+ import Privacy from "./components/Privacy"
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { ReactFlowProvider } from 'reactflow';
 import { useDispatch, useSelector } from 'react-redux';
@@ -161,6 +161,7 @@ if (user) {
           <Route path="/signup" element={<Signup />} />
           <Route path="/enviroment" element={<Enviroment />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="/login" element={<Login />} />  
         
           <Route element={<PrivateRoute/>}>
