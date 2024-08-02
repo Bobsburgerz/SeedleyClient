@@ -281,7 +281,7 @@ console.log(outAssistant)
 
   const singleCall = async (twilNum, SID, token) => {
     try {
-    await axios.post('https://coldcall.onrender.com/outbound-live', { phone: num, twilNum, aiid: selectedAssistantId, userId: user._id, SID, token , lang: lang});
+    await axios.post('https://seedleycallservice.onrender.com/outbound-live', { phone: num, twilNum, aiid: selectedAssistantId, userId: user._id, SID, token , lang: lang});
     setDial(false)
     setDialSuccess(true)
     } catch(e) {
