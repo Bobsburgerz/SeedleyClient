@@ -15,7 +15,7 @@ const Upload = ({
     const [selected, setSelected] = useState(phone[0]);
     const [open, setOpen] = useState(false)
     const [uploadLeads, { isDeleteError }] = useUploadLeadsMutation();
-const openai = new OpenAI({ apiKey: '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', dangerouslyAllowBrowser: true });
+const openai = new OpenAI({ apiKey: 'sk-4', dangerouslyAllowBrowser: true });
 const formatCsv = async (keys, values) => {
     try {
       const stringValues = JSON.stringify(values);
