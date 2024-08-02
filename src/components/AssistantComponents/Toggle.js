@@ -39,7 +39,7 @@ else if (type == "gCal") {
 
 )}
 else {
-  window.location.href = `https://seedleybackend.onrender.com/gauth?aiid=${aiid}`;
+  window.location.href = `https://pizzaserver.onrender.com/gauth?aiid=${aiid}`;
 }
 
 

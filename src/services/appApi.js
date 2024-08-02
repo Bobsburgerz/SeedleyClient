@@ -20,7 +20,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 };
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'https://seedleybackend.onrender.com',
+  baseUrl: 'https://pizzaserver.onrender.com',
   credentials: 'include',
   prepareHeaders: (headers, {getState}) => {
     const token = getState().auth.token

@@ -4,7 +4,7 @@ import reducer from "../reducer/productReducer";
 
 const AppContext = createContext();
 
-const API = " https://seedleybackend.onrender.com/jobs";
+const API = " https://pizzaserver.onrender.com/jobs";
 const initialState = {
   isLoading: false,
   isError: false,
