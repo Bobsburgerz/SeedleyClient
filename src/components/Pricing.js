@@ -22,7 +22,7 @@ const Modal = ({ onClose, setSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 try {
-    await axios.post('https:// api.seedley.net/contact', formData);
+    await axios.post('https://api.seedley.net/contact', formData);
     onClose();
     setSuccess(true);
   }catch(e) {

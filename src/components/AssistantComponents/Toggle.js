@@ -39,7 +39,7 @@ else if (type == "gCal") {
 
 )}
 else {
-  window.location.href = `https:// api.seedley.net/gauth?aiid=${aiid}`;
+  window.location.href = `https://api.seedley.net/gauth?aiid=${aiid}`;
 }
 
 

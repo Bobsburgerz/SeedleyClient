@@ -118,7 +118,7 @@ function App() {
 <div  className={styles.textbox} style={{maxWidth: '900px', marginTop: '15px',
    marginBottom: '15px', color: 'white', textAlign: 'start'}}>
 
-
+ 
 <h1 className='header-font'>AI that automates your business communications.</h1>
 
  <h3> Enhance your sales, customer service, or appointment setting efforts with low latency AI assistants. Discover how Seedley can improve your business today. </h3>
