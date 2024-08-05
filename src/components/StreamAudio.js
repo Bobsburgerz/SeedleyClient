@@ -14,7 +14,7 @@ const App = ({ settings }) => {
   const [loading, setLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const startWebSocket = async () => {
-    const res = await axios.post('https://coldcall.onrender.com/api/incoming/websocket', { userId: user?._id, aiid: settings._id, phone: 'web', callId: 'web' , lang: settings.language});
+    const res = await axios.post('https://caller.seedley.net/api/incoming/websocket', { userId: user?._id, aiid: settings._id, phone: 'web', callId: 'web' , lang: settings.language});
     let socketurl = "";
     socketurl = res.data.url;
   
