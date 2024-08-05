@@ -17,8 +17,6 @@ const App = ({ settings }) => {
     const res = await axios.post('https://caller.seedley.net/api/incoming/websocket', { userId: user?._id, aiid: settings._id, phone: 'web', callId: 'web' , lang: settings.language});
     let socketurl = "";
     socketurl = res.data.url;
-  
-   
     try {
       const constraints = {
         audio: {
@@ -199,7 +197,7 @@ const App = ({ settings }) => {
 
           
         )}  {isRecording && <>
-   <div style={{position :'absolute', marginLeft: '-270px', marginTop: '13px', fontSize:'12px', color: 'gray'}}> <br/><i>Intruptions are supported on phone calls but not web test calls for now*</i> </div> </>}
+   <div style={{position :'absolute', marginLeft: '-270px', marginTop: '13px', fontSize:'12px', color: 'gray'}}> <br/><i>Interruptions are supported on phone calls but not web test calls for now*</i> </div> </>}
         {user?.credits < 50 && <div style={{position :'absolute', marginLeft: '-35px'}}> <br/>Not enough credits.    Add more in billing </div>}
       </div>
     </div>

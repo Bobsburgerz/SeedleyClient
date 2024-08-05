@@ -88,7 +88,7 @@ if (user) {
 
   useEffect(() => {
     const connectSocket = () => {
-      const socket = new WebSocket(`wss://caller.seedley.net/react-app?userId=${user?._id}`);
+      const socket = new WebSocket(`wss://seedleycallservice.onrender.com/react-app?userId=${user?._id}`);
       socketRef.current = socket;
 
       socket.addEventListener('message', async (event) => {

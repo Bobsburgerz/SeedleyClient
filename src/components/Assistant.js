@@ -158,7 +158,7 @@ const [saving, setSaving] = useState(false)
       if (prevAssis !== selected) {
         try {
            
-          const res = await axios.post("https://pizzaserver.onrender.com/assistant/updateAssistant", selected);
+          const res = await axios.post("https://api.seedley.net/assistant/updateAssistant", selected);
          
           dispatch(updateAssistants(res.data));
           setSaving(false)
@@ -183,7 +183,7 @@ const [saving, setSaving] = useState(false)
     const updateAssistantData = async () => {
         if (prevAssis !== selected) {
             try {
-                const res = await axios.post("https://pizzaserver.onrender.com/assistant/updateAssistant", selected);
+                const res = await axios.post("https://api.seedley.net/assistant/updateAssistant", selected);
                 dispatch(updateAssistants(res.data));
             } catch (error) {
                 console.error('Error updating assistant:', error);
