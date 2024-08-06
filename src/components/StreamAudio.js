@@ -11,6 +11,7 @@ const App = ({ settings }) => {
   const isWebSocketOpen = useRef(false);
   const [isRecording, setIsRecording] = useState(false);
   const [audioString, setAudioString] = useState("");
+  console.log('check')
   const [loading, setLoading] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const startWebSocket = async () => {
