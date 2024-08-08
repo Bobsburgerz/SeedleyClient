@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Phone from "./assets/phone.png"
 import axios from "../api/axios";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch} from "react-redux";
 import { useAddNumberMutation } from "../services/appApi.js"
 import Delete from "./assets/delete.png"
 import { useDeleteNumberMutation } from "../services/appApi";
 import { useLocation } from 'react-router-dom';
+import { updatePhoneNum } from '../features/phoneNumSlice';
 import { useNavigate } from 'react-router-dom';
 import './styles/Dashboard.css';
 const Modal = ({ onClose, isDelete, selected, setSelected, setDelete }) => {
+ 
   const phone = useSelector((state) => state.phoneNum);
   const [deleteNumber] = useDeleteNumberMutation();
   const [saveNumber, { isSaveError }] = useAddNumberMutation();
@@ -230,6 +232,7 @@ const Modal3 = ({ onClose }) => {
 
 
 const PhoneNum = () => {
+  const dispatch = useDispatch()
   const assistantsArray = useSelector((state) => state.assistants);
   const phone = useSelector((state) => state.phoneNum);
   const [selected, setSelected] = useState(phone[0]);
@@ -316,9 +319,28 @@ console.log(outAssistant)
     }
   }, [phone]);
 
+
+  const callBackChange = (val) => {
+    setSelected(prevSelected => ({
+      ...prevSelected,
+      callbackurl: val
+    }));
+  };
+  
   const saveChanges = async () => {
-    await axios.post('/phone/updatePhone',{id: selected._id , callback: callback })
-  }
+    try {
+ 
+
+      
+     const res = await axios.post('/phone/update-number', selected);
+      dispatch(updatePhoneNum(res.data.phoneNums))
+    
+    } catch (error) {
+ 
+      console.error('Error updating phone number:', error);
+    }
+  };
+  
   const openDelete = (number) => {
     setModal(true)
     setDelete(true)
@@ -398,14 +420,14 @@ style={{ borderRadius: '5px',background: '#fbfbfb', height: '31.1px', cursor: 'p
         
         {phone.length >= 1 ? (
           <>
-{ callback !== "" && <button onClick={() => saveChanges()}>Save Changes</button> }
+ 
 <div style={{  flexDirection: 'column', textAlign: 'start', padding: '0px 16px', justifyContent: 'space-between' }} className={'title-box'}>
             <div style={{display:'flex', justifyContent:'space-between'}}><h2>Call back url</h2> 
           
-            
+            { selected.callbackurl !== phone.callbackurl && <button style={{maxHeight: '35px', marginTop: '15px'}} className="standardBtn" onClick={() => saveChanges()}>Save Changes</button> }
                </div>  
               
-          <input onChange={(e) => setCallback(e.target.value)} placeholder="url" style={{padding:'8px', width:'98.3%'}}/>
+          <input value={selected?.callbackurl} onChange={(e) => callBackChange(e.target.value)} placeholder="url" style={{padding:'8px', width:'98.3%'}}/>
             </div>
             <div style={{  flexDirection: 'column', textAlign: 'start', padding: '0px 16px', justifyContent: 'space-between' }} className={'title-box'}>
             <div style={{display:'flex', justifyContent:'space-between'}}><h2>Inbound</h2>        
