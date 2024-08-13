@@ -94,7 +94,7 @@ const Privacy = ({ onClose }) => {
               <li><strong>Data Access:</strong> We collect and use OAuth2 access and refresh tokens provided by Google to authenticate and interact with your calendar.</li>
               <li><strong>Token Storage:</strong> Access and refresh tokens are securely stored and managed by us to maintain service functionality.</li>
             
-              <li> Seedley's use and transfer to any other app of information received from Google APIs will adhere to <a href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Google API Services User Data Policy</a> , including the Limited Use requirements.</li>
+              <li> Seedley's use and transfer to any other app of information received from Google APIs will adhere to <a style={{color:"blue"}} href="https://developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes">Google API Services User Data Policy</a> , including the Limited Use requirements.</li>
             </ul>
           </p>
           <p>
