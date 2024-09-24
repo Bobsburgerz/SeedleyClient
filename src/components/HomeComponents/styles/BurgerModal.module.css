@@ -1,12 +1,12 @@
 .Modal {
   border:2px solid rgb(255, 255, 255);
-    background-color: #356939;
+    background-color: #485549;
     border-radius: 5px;
     padding: 10px;
     width: 175px;
     position: absolute;
     margin-top: 68px;
-    margin-left: 165px;
+    margin-left: 15px;
     text-align: center;
     row-gap: 5px;
     display: flex;

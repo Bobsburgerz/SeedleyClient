@@ -92,10 +92,10 @@ function App() {
         <div style={{ opacity: isLoaded ? '1' : '0'}}  id="img-parent" className={  isLoaded ? styles.imgParent_fadeIn : styles.imgParent}>
       
           <div  className={styles.words}id="words" style={{ marginLeft: '10px' }}>
-            <h1 className={styles.main_text}>Voice <span style={{ color: 'white',
+            <h1 className={styles.main_text}>Voice <span style={{ color: 'white', margin: '0px',
             textShadow: '0 0 4px orange, 0 0 4px orange, 0 0 4px orange, 0 0 4px orange',}}>Automation</span> Made</h1>
  
-            <h1 className={styles.main_text} style={{ marginTop: '-23px'}}>  Simple</h1>
+            <h1 className={styles.main_text} >  Simple</h1>
 
             <div style={{ display: 'flex', columnGap: '12px', marginTop: '50px' , justifyContent: 'center'}}>
             <a href="/pricing?contact=true"><button className={styles.gradient_button4} >
